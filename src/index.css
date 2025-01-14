@@ -9,3 +9,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.feature1 {
+    background: linear-gradient(45deg , rgba(184, 252, 252, 0.932) ,  rgba(145, 223, 223, 0.932));
+}
+
+.feature2 {
+    background: linear-gradient(45deg , rgba(247, 255, 171, 0.932) ,  rgba(210, 228, 133, 0.932));
+}
+
+ .feature3 {
+    background: linear-gradient(45deg , rgba(224, 176, 252, 0.932) ,  rgba(215, 132, 248, 0.932));
+}

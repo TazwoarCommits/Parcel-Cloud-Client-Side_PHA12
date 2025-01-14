@@ -15,22 +15,28 @@ const Home = () => {
             <div className="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
                 <FeaturedCard icon={feature1}
                     title="Parcel Safety"
+                    animate="fade-up-right"
+                    bg="feature1"
                     description="We prioritizes parcel safety by ensuring secure packaging, careful handling, and real-time tracking to prevent loss or damage"
-                ></FeaturedCard>
-
-                <FeaturedCard icon={feature2}
-                    title="Fast Delivery"
-                    description="With our fast delivery services, we guarantee timely dispatch and arrival, meeting your urgent needs"
                 ></FeaturedCard>
 
                 <FeaturedCard icon={feature3}
                     title="Customer Satisfaction"
+                    bg="feature3"
+                    animate="fade-up"
                     description="Customer satisfaction is at the heart of everything we do, offering transparent communication, reliable service, and dedicated support"
+                ></FeaturedCard>
+
+                <FeaturedCard icon={feature2}
+                    title="Fast Delivery"
+                    animate="fade-up-left"
+                    bg="feature2"
+                    description="With our fast delivery services, we guarantee timely dispatch and arrival, meeting your urgent needs"
                 ></FeaturedCard>
 
             </div>
 
-            <SectionTitle title="Our Top Delivery Man"></SectionTitle>
+            <SectionTitle title="Our Top Delivery Men"></SectionTitle>
         </div>
     );
 };
