@@ -1,0 +1,9 @@
+
+.bg {
+   background-image: url("../../../assets/banner.jpg");
+   background-color: rgba(0, 0, 0, 0.459);
+   background-blend-mode: darken;
+   background-size : cover ; 
+   height: 60vh;
+   width: 100%; 
+}
