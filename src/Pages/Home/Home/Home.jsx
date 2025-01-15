@@ -4,11 +4,15 @@ import Banner from "../Banner/Banner";
 import feature1 from "../../../assets/feature1.jpg"
 import feature2 from "../../../assets/feature2.png"
 import feature3 from "../../../assets/feature3.png"
+import { Helmet } from "react-helmet-async";
 
 
 const Home = () => {
     return (
         <div>
+            <Helmet>
+                <title>Parcel Cloud | Home</title>
+            </Helmet>
             <Banner></Banner>
             <SectionTitle title="Our Features"></SectionTitle>
 
