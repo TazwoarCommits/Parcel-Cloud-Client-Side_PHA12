@@ -1,7 +1,7 @@
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import Lottie from "lottie-react";
 import login from "../../assets/Loties/login.json"
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
@@ -9,8 +9,11 @@ import useAuth from '../../Hooks/useAuth';
 import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
-    const { loginUser } = useAuth();
-    const navigate = useNavigate();
+    const { loginUser } = useAuth() ;
+    const navigate = useNavigate() ;
+    const location = useLocation() ;
+
+    const from = location?.state?.pathname || "/" ;
 
     useEffect(() => {
         loadCaptchaEnginge(5)
@@ -36,7 +39,7 @@ const Login = () => {
                             timer: 1500
                           });
 
-                        navigate("/")
+                        navigate(from , {replace : true}) ;
                     }
                 })
                 .catch(err => {

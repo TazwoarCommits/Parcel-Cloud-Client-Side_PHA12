@@ -12,16 +12,21 @@ const Register = () => {
     const {handleSubmit , register , formState: { errors } } = useForm() ;
     const navigate = useNavigate() ;
 
+    const image_hosting_key = import.meta.env.VITE_image_hosting_API_key ; 
+    const image_hosting_API = `https://api.imgbb.com/1/upload?key=${image_hosting_key}` ;
+
     const onSubmit = form => {
-        createUser(form.email , form.password)
-        .then(res => {
-            if(res.user){
-                updateUsersProfile(form.name , form.photo)
-                toast.success("Successfully Registered") ;
-                console.log(res);
-                navigate("/")
-            }
-        })
+        console.log(form , form.photo[0]);
+        const imageFile = {image : form.photo[0]}
+        // createUser(form.email , form.password)
+        // .then(res => {
+        //     if(res.user){
+        //         updateUsersProfile(form.name , form.photo)
+        //         toast.success("Successfully Registered") ;
+        //         console.log(res);
+        //         navigate("/")
+        //     }
+        // })
     }
     
     return (
