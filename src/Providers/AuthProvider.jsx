@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { createContext } from "react";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
 export const AuthContext = createContext(null);
@@ -29,6 +29,17 @@ const AuthProvider = ({ children }) => {
         });
     }
 
+    useEffect(()=>{
+        const unsubscribe = onAuthStateChanged( auth , currentUser => {
+           setUser(currentUser) ;
+           setLoading(false) ;
+        })
+
+        return () => {
+            return unsubscribe() ;
+        }
+    },[])
+
     const logOut = () => {
         setLoading(true) ;
         return signOut(auth);
@@ -53,7 +64,7 @@ const AuthProvider = ({ children }) => {
 };
 
 AuthProvider.propTypes = {
-    children: PropTypes.array.isRequired,
+    children: PropTypes.object.isRequired,
 }
 
 export default AuthProvider;

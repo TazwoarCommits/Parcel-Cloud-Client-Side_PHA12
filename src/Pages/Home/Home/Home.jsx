@@ -5,9 +5,11 @@ import feature1 from "../../../assets/feature1.jpg"
 import feature2 from "../../../assets/feature2.png"
 import feature3 from "../../../assets/feature3.png"
 import { Helmet } from "react-helmet-async";
+import useAuth from "../../../Hooks/useAuth";
 
 
 const Home = () => {
+    const {user} = useAuth() ;
     return (
         <div>
             <Helmet>
@@ -41,6 +43,8 @@ const Home = () => {
             </div>
 
             <SectionTitle title="Our Top Delivery Men"></SectionTitle>
+
+            <p>{user?.email ? user?.email  : "Nulli"}</p>
         </div>
     );
 };

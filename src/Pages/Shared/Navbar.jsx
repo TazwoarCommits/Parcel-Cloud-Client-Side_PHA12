@@ -1,8 +1,15 @@
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { Link } from "react-router-dom";
 import 'animate.css';
+import useAuth from "../../Hooks/useAuth";
 
 const Navbar = () => {
+    const {user , logOut} = useAuth() ;
+
+    const handleLogOut = () => {
+        logOut() ;
+    } ;
+
     return (
         <div className="navbar bg-base-100">
             <div className="flex-1">
@@ -41,10 +48,10 @@ const Navbar = () => {
                         tabIndex={0}
                         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
                         <li>
-                           <p className="">User Name</p>
+                           <p className="">{user? user?.name ? user.name : user?.email : ""}</p>
                         </li>
-                        <li><Link to="">Dashboard</Link></li>
-                        <li><p>Logout</p></li>
+                        <li>{user? <Link to="">Dashboard</Link> : <Link to="/login">Login</Link>}</li>
+                        <li>{user? <p onClick={handleLogOut}>Logout</p> : <Link to="/register">Register</Link>}</li>
                     </ul>
                 </div>
             </div>

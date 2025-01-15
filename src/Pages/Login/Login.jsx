@@ -1,7 +1,7 @@
 import { loadCaptchaEnginge, LoadCanvasTemplate, validateCaptcha } from 'react-simple-captcha';
 import Lottie from "lottie-react";
 import login from "../../assets/Loties/login.json"
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
@@ -10,6 +10,7 @@ import { Helmet } from 'react-helmet-async';
 
 const Login = () => {
     const { loginUser } = useAuth();
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadCaptchaEnginge(5)
@@ -24,11 +25,18 @@ const Login = () => {
         const captcha = form.get("captcha");
 
         if (validateCaptcha(captcha)) {
-            toast.success("Matched")
             loginUser(email, password)
                 .then(res => {
                     if (res?.user) {
-                        toast.success("Successfully Logged In")
+                        Swal.fire({
+                            position: "center",
+                            icon: "success",
+                            title: "Your work has been saved",
+                            showConfirmButton: false,
+                            timer: 1500
+                          });
+
+                        navigate("/")
                     }
                 })
                 .catch(err => {
@@ -52,12 +60,12 @@ const Login = () => {
             </Helmet>
             <div className="hero bg-base-200 min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
-                    <div className="text-center lg:text-left">
+                    <div className="text-center w-11/12 lg:w-1/2 lg:text-left">
                         <Lottie animationData={login} className="max-w-96"></Lottie>
                     </div>
-                    <div className="card bg-base-100 w-full max-w-sm shrink-0 shadow-2xl">
+                    <div className="card bg-base-100 w-11/12 lg:w-1/2 shadow-2xl">
                         <form onSubmit={handleLogin} className="card-body">
-                            <h2 className="text-3xl font-semibold">Streamline Your Deliveries, One Login Away!</h2>
+                            <h2 className="text-xl md:text-2xl lg:text-3xl font-semibold">Streamline Your Deliveries, One Login Away!</h2>
                             <div className="form-control">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -69,9 +77,6 @@ const Login = () => {
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input type="password" placeholder="password" name='password' className="input input-bordered" required />
-                                <label className="label">
-                                    <a href="#" className="label-text-alt link link-hover">Forgot password?</a>
-                                </label>
                             </div>
                             <div className="form-control">
                                 <LoadCanvasTemplate />
