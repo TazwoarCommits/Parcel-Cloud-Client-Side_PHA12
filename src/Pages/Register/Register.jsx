@@ -5,28 +5,38 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { useQuery } from "@tanstack/react-query";
 
 
 const Register = () => {
     const { createUser , updateUsersProfile } = useAuth();
     const {handleSubmit , register , formState: { errors } } = useForm() ;
+    const axiosPublic = useAxiosPublic() ;
     const navigate = useNavigate() ;
 
     const image_hosting_key = import.meta.env.VITE_image_hosting_API_key ; 
     const image_hosting_API = `https://api.imgbb.com/1/upload?key=${image_hosting_key}` ;
 
-    const onSubmit = form => {
+    const onSubmit = async form => {
         console.log(form , form.photo[0]);
-        const imageFile = {image : form.photo[0]}
-        // createUser(form.email , form.password)
-        // .then(res => {
-        //     if(res.user){
-        //         updateUsersProfile(form.name , form.photo)
-        //         toast.success("Successfully Registered") ;
-        //         console.log(res);
-        //         navigate("/")
-        //     }
-        // })
+        const imageFile = {image : form.photo[0]} ;
+        const {data} = await axiosPublic.post ( image_hosting_API , imageFile , {
+            headers : {
+                "Content-Type" : "multipart/form-data"
+            }
+        }) ;
+        console.log(data.data.display_url);
+
+        createUser(form.email , form.password)
+        .then(res => {
+            if(res.user){
+                updateUsersProfile(form.name , form.photo)
+                toast.success("Successfully Registered") ;
+                console.log(res);
+                navigate("/")
+            }
+        })
     }
     
     return (
