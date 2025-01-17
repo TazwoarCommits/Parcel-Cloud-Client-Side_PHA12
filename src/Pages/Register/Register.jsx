@@ -29,7 +29,7 @@ const Register = () => {
                 }
             });
 
-            console.log(data)
+            // console.log(data)
 
             const newUser = {
                 name: form.name,

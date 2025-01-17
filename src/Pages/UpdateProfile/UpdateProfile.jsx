@@ -1,13 +1,52 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../Components/SectionTitle";
 import useAuth from "../../Hooks/useAuth";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const UpdateProfile = () => {
     const { handleSubmit, register } = useForm();
-    const{user} = useAuth() ;
+    const { user, updateUsersProfile } = useAuth();
+    const axiosPublic = useAxiosPublic();
 
-    const onSubmit = data => {
-        console.log(data);
+    const image_hosting_key = import.meta.env.VITE_image_hosting_API_key;
+    const image_hosting_API = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
+    const onSubmit = async form => {
+        try {
+
+            const imageFile = { image: form?.photo[0] }
+
+            if (imageFile) {
+                const { data } = await axiosPublic.post(image_hosting_API, imageFile, {
+                    headers: {
+                        "Content-Type": "multipart/form-data"
+                    }
+                });
+
+                const name = form?.name ? form.name : user.displayName;
+                const photo = data?.data?.display_url ? data?.data?.display_url : user.photoURL
+
+                updateUsersProfile(name, photo);
+
+            }
+
+            else{
+                
+                 const name = form?.name ? form.name : user.displayName;
+                 const photo = user.photoURL ;
+
+                 updateUsersProfile(name, photo);
+            }
+
+
+
+
+
+
+        }
+        catch (err) {
+            console.log(err);
+        }
     }
     return (
         <div>
