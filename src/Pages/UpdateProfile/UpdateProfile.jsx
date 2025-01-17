@@ -1,7 +1,8 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../Components/SectionTitle";
 import useAuth from "../../Hooks/useAuth";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosPublic from "../../Hooks/useAxios";
+
 
 const UpdateProfile = () => {
     const { handleSubmit, register } = useForm();
@@ -31,7 +32,7 @@ const UpdateProfile = () => {
             }
 
             else{
-                
+
                  const name = form?.name ? form.name : user.displayName;
                  const photo = user.photoURL ;
 

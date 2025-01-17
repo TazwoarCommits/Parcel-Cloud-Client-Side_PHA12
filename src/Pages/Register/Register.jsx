@@ -5,15 +5,14 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import useAxiosPublic from "../../Hooks/useAxios";
 
 
 const Register = () => {
     const { createUser, updateUsersProfile, user } = useAuth();
-    const { handleSubmit, register, formState: { errors }, reset } = useForm();
+    const { handleSubmit, register, formState: { errors } , reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
-
 
 
     const image_hosting_key = import.meta.env.VITE_image_hosting_API_key;
@@ -21,7 +20,7 @@ const Register = () => {
 
     const onSubmit = async form => {
         try {
-            // console.log("form", form, "photo", form.photo[0]);
+            console.log("form", form, "photo", form.photo[0]);
             const imageFile = { image: form.photo[0] };
             const { data } = await axiosPublic.post(image_hosting_API, imageFile, {
                 headers: {
@@ -29,7 +28,7 @@ const Register = () => {
                 }
             });
 
-            // console.log(data)
+            console.log(data)
 
             const newUser = {
                 name: form.name,
@@ -44,20 +43,20 @@ const Register = () => {
                 const profileRes = await updateUsersProfile(newUser.name, newUser.photo);
                 console.log(profileRes);
 
-                if (newUser.role === "delivery man") {
-                    newUser.reviewCount = 0,
-                        newUser.delivered = 0,
-                        newUser.review = parseFloat(0).toFixed(1)
+                if(newUser.role === "delivery man"){
+                    newUser.reviewCount = 0 ,
+                    newUser.delivered = 0 ,
+                    newUser.review = parseFloat(0).toFixed(1)
 
-                    const { data } = await axiosPublic.post("/delivery-man", newUser) ;
+                    const {data} = await axiosPublic.post("/delivery-man" , newUser) ;
+                    console.log(data);
+                } 
+                else{
+                    const {data} = await axiosPublic.post("/users" , newUser) ;
                     console.log(data);
                 }
-                else {
-                    const { data } = await axiosPublic.post("/users", newUser);
-                    console.log(data);
-                }
 
-
+                
 
                 toast.success("Successfully Logged In")
                 navigate("/")
@@ -65,9 +64,9 @@ const Register = () => {
             }
         }
 
-        catch (err) {
+        catch(err){
             console.log(err.message);
-            reset()
+            reset() ;
         }
 
     }
@@ -98,7 +97,7 @@ const Register = () => {
                                     <div className="label">
                                         <span className="label-text">Register As</span>
                                     </div>
-                                    <select defaultValue="default" {...register("role", { required: true })} className="select select-bordered" required>
+                                    <select defaultValue="default" {...register("role", { required: true })} className="select select-bordered">
                                         <option disabled value="default">Pick one</option>
                                         <option>User</option>
                                         <option>Delivery Man</option>

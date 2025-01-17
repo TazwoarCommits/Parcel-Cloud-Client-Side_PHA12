@@ -1,6 +1,7 @@
 import useAuth from "./useAuth";
 import { useQuery } from "@tanstack/react-query";
-import useAxiosPublic from "./useaxiosPublic";
+import useAxiosPublic from "./useAxios";
+
 
 
 const useParcel = () => {
