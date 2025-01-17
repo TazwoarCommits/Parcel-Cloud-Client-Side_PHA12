@@ -2,8 +2,9 @@ import { BsBoxFill } from 'react-icons/bs';
 import { MdAddCard } from 'react-icons/md';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { NavLink, Outlet } from 'react-router-dom';
+import useParcel from '../Hooks/useParcel';
 const Dashboard = () => {
-
+     const [parcel ] = useParcel([]) ;
     // const isAdmin = false;
 
     return (
@@ -18,7 +19,7 @@ const Dashboard = () => {
                             <>
                                 <li>
                                     <NavLink to="/dashboard/myParcel">
-                                        <BsBoxFill /> <span>My Parcel</span>
+                                        <span><BsBoxFill /></span> My Parcel<span className='text-xs'>{parcel.length}</span>
                                     </NavLink>
                                 </li>
                                 <li>

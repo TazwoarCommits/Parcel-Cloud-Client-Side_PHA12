@@ -5,11 +5,15 @@ import { Helmet } from "react-helmet-async";
 import "react-datepicker/dist/react-datepicker.css";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useParcel from "../../../Hooks/useParcel";
+import { useNavigate } from "react-router-dom";
 
 const BookAParcel = () => {
     const { user } = useAuth();
     const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm();
     const axiosSecure = useAxiosSecure() ;
+    const [ , refetch] = useParcel([]) ;
+    const navigate = useNavigate() ;
 
     watch("weight", "");
 
@@ -36,6 +40,7 @@ const BookAParcel = () => {
 
         const {data} = await axiosSecure.post("/parcels" , parcel)
         if(data.insertedId){
+            refetch() ;
             Swal.fire({
                 position: "center",
                 icon: "success",
@@ -43,6 +48,9 @@ const BookAParcel = () => {
                 showConfirmButton: false,
                 timer: 1500
               });
+              
+            navigate("/dashboard/myParcel") ;
+        
         }
 
         else(console.log(data))

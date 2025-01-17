@@ -6,45 +6,47 @@ import Register from "../Pages/Register/Register";
 import Dashboard from "../Layouts/Dashboard";
 import BookAParcel from "../Pages/Dashboard/UserPage/BookAParcel";
 import PrivateRoutes from "./PrivateRoutes";
+import MyProfile from "../Pages/Dashboard/UserPage/MyProfile";
+import MyParcels from "../Pages/Dashboard/UserPage/MyParcels";
 
 const router = createBrowserRouter([
-    {
-      path: "/",
-      errorElement : <h1>Error</h1> ,
-      element: <MainLayout></MainLayout>,
-      children : [
-        {
-            path : "/",
-            element : <Home></Home>
-        },
-        {
-          path : "/dashboard" ,
-          element : <Dashboard></Dashboard> ,
-          children : [
-           {
-            path: "/dashboard/bookParcel" ,
-            element : <PrivateRoutes><BookAParcel></BookAParcel></PrivateRoutes>,
-           },
-           {
-            path: "/dashboard/myParcel" ,
-            element : <p>myParcel</p>,
-           },
-           {
-            path: "/dashboard/profile" ,
-            element : <p>profile</p>,
-           },
-          ]
-        },
-      ]
-    },
-    {
-      path : "/login",
-      element : <Login></Login>
-    },
-    {
-      path : "/register" ,
-      element : <Register></Register>
-    }
-  ]);
+  {
+    path: "/",
+    errorElement: <h1>Error</h1>,
+    element: <MainLayout></MainLayout>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>
+      },
+      {
+        path: "/dashboard",
+        element: <Dashboard></Dashboard>,
+        children: [
+          {
+            path: "/dashboard/myParcel",
+            element: <PrivateRoutes><MyParcels></MyParcels></PrivateRoutes>,
+          },
+          {
+            path: "/dashboard/bookParcel",
+            element: <PrivateRoutes><BookAParcel></BookAParcel></PrivateRoutes>,
+          },
+          {
+            path: "/dashboard/profile",
+            element: <PrivateRoutes><MyProfile></MyProfile></PrivateRoutes>,
+          },
+        ]
+      },
+    ]
+  },
+  {
+    path: "/login",
+    element: <Login></Login>
+  },
+  {
+    path: "/register",
+    element: <Register></Register>
+  }
+]);
 
-  export default router
+export default router
