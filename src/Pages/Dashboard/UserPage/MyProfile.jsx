@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle";
 import useAuth from "../../../Hooks/useAuth";
 import useParcel from "../../../Hooks/useParcel";
@@ -16,13 +17,19 @@ const MyProfile = () => {
                    <img className="ml-8 h-52 w-52 mx-auto rounded-full"
                    src={user?.photoURL}  />
                 </div>
-                <div>
+                <div className="mt-8 mb-12">
                     <p className="ml-2 md:ml-4 text-xl md:text-3xl font-medium"
                     >User name : {user.displayName}</p>
                     <p className="ml-2 md:ml-4 ">Email : {user.email}</p>
                     <p className="ml-2 md:ml-4 ">My Total Parcel : {parcel.length}</p>
                 </div>
-                
+                 <div className="my-6">
+                      <Link to="/dashboard/updateProfile">
+                      <button 
+                      className="ml-2 md:ml-4 py-2 px-6 bg-amber-400 hover:bg-amber-500 rounded-2xl"
+                      >Update Profile</button>
+                      </Link>
+                 </div>
             </div>
         </div>
     );

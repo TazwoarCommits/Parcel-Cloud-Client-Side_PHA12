@@ -8,6 +8,7 @@ import BookAParcel from "../Pages/Dashboard/UserPage/BookAParcel";
 import PrivateRoutes from "./PrivateRoutes";
 import MyProfile from "../Pages/Dashboard/UserPage/MyProfile";
 import MyParcels from "../Pages/Dashboard/UserPage/MyParcels";
+import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,10 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
         children: [
+          {
+            path : "/dashboard/updateProfile" ,
+            element : <PrivateRoutes><UpdateProfile></UpdateProfile></PrivateRoutes>
+          },
           {
             path: "/dashboard/myParcel",
             element: <PrivateRoutes><MyParcels></MyParcels></PrivateRoutes>,
