@@ -38,7 +38,7 @@ const Navbar = () => {
                         <li>
                            <p className="">{user? user?.displayName : ""}</p>
                         </li>
-                        <li>{user? <Link to="">Dashboard</Link> : <Link to="/login">Login</Link>}</li>
+                        <li>{user? <Link to="/dashboard">Dashboard</Link> : <Link to="/login">Login</Link>}</li>
                         <li>{user? <p onClick={handleLogOut}>Logout</p> : <Link to="/register">Register</Link>}</li>
                     </ul>
                 </div>

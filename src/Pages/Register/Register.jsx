@@ -10,11 +10,11 @@ import useAxiosPublic from "../../Hooks/useAxiosPublic";
 
 const Register = () => {
     const { createUser, updateUsersProfile, user } = useAuth();
-    const { handleSubmit, register, formState: { errors } } = useForm();
+    const { handleSubmit, register, formState: { errors }, reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
-    
+
 
     const image_hosting_key = import.meta.env.VITE_image_hosting_API_key;
     const image_hosting_API = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -44,8 +44,20 @@ const Register = () => {
                 const profileRes = await updateUsersProfile(newUser.name, newUser.photo);
                 console.log(profileRes);
 
-                const { data } = await axiosPublic.post("/users", newUser) ;
-                console.log(data);
+                if (newUser.role === "delivery man") {
+                    newUser.reviewCount = 0,
+                        newUser.delivered = 0,
+                        newUser.review = parseFloat(0).toFixed(1)
+
+                    const { data } = await axiosPublic.post("/delivery-man", newUser) ;
+                    console.log(data);
+                }
+                else {
+                    const { data } = await axiosPublic.post("/users", newUser);
+                    console.log(data);
+                }
+
+
 
                 toast.success("Successfully Logged In")
                 navigate("/")
@@ -53,8 +65,9 @@ const Register = () => {
             }
         }
 
-        catch(err){
+        catch (err) {
             console.log(err.message);
+            reset()
         }
 
     }
@@ -85,7 +98,7 @@ const Register = () => {
                                     <div className="label">
                                         <span className="label-text">Register As</span>
                                     </div>
-                                    <select defaultValue="default" {...register("role", { required: true })} className="select select-bordered">
+                                    <select defaultValue="default" {...register("role", { required: true })} className="select select-bordered" required>
                                         <option disabled value="default">Pick one</option>
                                         <option>User</option>
                                         <option>Delivery Man</option>

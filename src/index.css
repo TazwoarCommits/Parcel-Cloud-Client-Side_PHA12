@@ -22,3 +22,11 @@
  .feature3 {
     background: linear-gradient(45deg , rgba(224, 176, 252, 0.932) ,  rgba(215, 132, 248, 0.932));
 }
+
+
+a.active {
+    color: rgba(255, 217, 0, 0.863);
+    background-color: yellowgreen;
+    font-style: italic;
+    border-radius: 8px;
+}
