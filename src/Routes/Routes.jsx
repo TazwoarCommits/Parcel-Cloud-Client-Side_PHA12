@@ -10,6 +10,7 @@ import MyProfile from "../Pages/Dashboard/UserPage/MyProfile";
 import MyParcels from "../Pages/Dashboard/UserPage/MyParcels";
 import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
 import UpdateParcel from "../Pages/Dashboard/UserPage/UpdateParcel";
+import AddReview from "../Pages/Dashboard/UserPage/AddReview";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,11 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/myParcel",
             element: <PrivateRoutes><MyParcels></MyParcels></PrivateRoutes>,
+          },
+          {
+            path: "/dashboard/addReview/:id" ,
+            element : <PrivateRoutes><AddReview></AddReview></PrivateRoutes> ,
+            loader : ({params}) => fetch(`http://localhost:5000/parcels/${params.id}`)
           },
           {
             path: "/dashboard/updateParcel/:id",

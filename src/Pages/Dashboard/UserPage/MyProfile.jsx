@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import SectionTitle from "../../../Components/SectionTitle";
 import useAuth from "../../../Hooks/useAuth";
 import useParcel from "../../../Hooks/useParcel";
+import { Helmet } from "react-helmet-async";
 
 
 const MyProfile = () => {
@@ -11,6 +12,9 @@ const MyProfile = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Parcel Cloud | My Profile</title>
+            </Helmet>
             <SectionTitle title="My Profile"></SectionTitle>
             <div className=" md:w-10/12 lg:w-7/12 mx-auto border-2 md:rounded-t-3xl border-amber-600/80">
                 <div className="bg-amber-600/80 md:rounded-t-3xl p-3 md:p-6">

@@ -5,6 +5,7 @@ import { format } from 'date-fns';
 import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
+import { Helmet } from "react-helmet-async";
 
 const MyParcels = () => {
     const [parcel, refetch] = useParcel();
@@ -36,11 +37,11 @@ const MyParcels = () => {
                 const { data } = await axiosSecure.delete(`/parcels/${id}`)
                 if (data.deletedCount > 0) {
                     refetch();
-                      Swal.fire({
+                    Swal.fire({
                         title: "Deleted!",
                         text: "Parcel has been removed.",
                         icon: "success"
-                      });
+                    });
                 }
 
             }
@@ -50,6 +51,9 @@ const MyParcels = () => {
 
     return (
         <div>
+            <Helmet>
+                <title>Parcel Cloud | My Parcels</title>
+            </Helmet>
             <SectionTitle title="My Parcel"></SectionTitle>
             <div className="my-8 md:my-16">
                 <select name="" id="" onChange={handleFilter} className="p-4 text-semibold border-2 border-amber-400 rounded-xl">
@@ -102,7 +106,9 @@ const MyParcels = () => {
                                         <button disabled className="text-[10px] mx-1 px-2 py-1 rounded-md bg-gray-700 text-white font-medium">Cancel</button>
                                     </div>}</td>
                                 <td>{item.status === "delivered" ?
-                                    <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Review</button>
+                                    <Link to={`/dashboard/addReview/${item._id}`}>
+                                        <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Review</button>
+                                    </Link>
                                     :
                                     <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Review</button>}
                                 </td>
