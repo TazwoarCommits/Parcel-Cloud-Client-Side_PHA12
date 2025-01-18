@@ -9,6 +9,7 @@ import PrivateRoutes from "./PrivateRoutes";
 import MyProfile from "../Pages/Dashboard/UserPage/MyProfile";
 import MyParcels from "../Pages/Dashboard/UserPage/MyParcels";
 import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
+import UpdateParcel from "../Pages/Dashboard/UserPage/UpdateParcel";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/myParcel",
             element: <PrivateRoutes><MyParcels></MyParcels></PrivateRoutes>,
+          },
+          {
+            path: "/dashboard/updateParcel/:id",
+            element: <PrivateRoutes><UpdateParcel></UpdateParcel></PrivateRoutes>,
+            loader : ({params}) => fetch(`http://localhost:5000/parcels/${params.id}`)
           },
           {
             path: "/dashboard/bookParcel",

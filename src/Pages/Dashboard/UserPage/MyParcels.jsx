@@ -2,21 +2,50 @@ import { useState } from "react";
 import SectionTitle from "../../../Components/SectionTitle";
 import useParcel from "../../../Hooks/useParcel";
 import { format } from 'date-fns';
+import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 
 const MyParcels = () => {
-    const [parcel] = useParcel();
+    const [parcel, refetch] = useParcel();
     const [filterBy, setFilterBy] = useState("");
+    const axiosSecure = useAxiosSecure();
 
     const handleFilter = (e) => {
         setFilterBy(e.target.value);
-        console.log(filterBy);
-
     }
 
     const filteredParcels = parcel.filter((item) => {
-        if (!filterBy) {return true}; 
-        return item.status.toLowerCase() === filterBy.toLowerCase(); 
+        if (!filterBy) {
+            return true
+        };
+        return item.status.toLowerCase() === filterBy.toLowerCase();
     })
+
+    const handleDelete = id => {
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, Cancel it!"
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                const { data } = await axiosSecure.delete(`/parcels/${id}`)
+                if (data.deletedCount > 0) {
+                    refetch();
+                      Swal.fire({
+                        title: "Deleted!",
+                        text: "Parcel has been removed.",
+                        icon: "success"
+                      });
+                }
+
+            }
+        });
+    }
 
 
     return (
@@ -60,16 +89,26 @@ const MyParcels = () => {
                                 <td>{item.status}</td>
                                 <td>{item.status === "pending" ?
                                     <div>
-                                        <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Update</button><button className="text-[10px] mx-1 px-2 py-1 rounded-md bg-red-700 text-white font-medium">Cancel</button>
+                                        <Link to={`/dashboard/updateParcel/${item._id}`}>
+                                            <button
+                                                className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Update</button>
+                                        </Link>
+                                        <button onClick={() => handleDelete(item._id)}
+                                            className="text-[10px] mx-1 px-2 py-1 rounded-md bg-red-700 text-white font-medium">Cancel</button>
                                     </div> :
                                     <div>
-                                        <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Update</button><button disabled className="text-[10px] mx-1 px-2 py-1 rounded-md bg-gray-700 text-white font-medium">Cancel</button>
+                                        <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Update</button>
+
+                                        <button disabled className="text-[10px] mx-1 px-2 py-1 rounded-md bg-gray-700 text-white font-medium">Cancel</button>
                                     </div>}</td>
                                 <td>{item.status === "delivered" ?
                                     <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Review</button>
                                     :
-                                    <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Review</button>}</td>
-                                <td><button className="text-[10px] mx-1 px-2 py-1  bg-amber-600 rounded-md text-white font-medium">Pay</button></td>
+                                    <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Review</button>}
+                                </td>
+                                <td>
+                                    <button className="text-[10px] mx-1 px-2 py-1  bg-amber-600 rounded-md text-white font-medium">Pay</button>
+                                </td>
                             </tr>)
                         }
                     </tbody>
