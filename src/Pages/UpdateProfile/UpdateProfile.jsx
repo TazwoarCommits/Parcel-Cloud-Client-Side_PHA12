@@ -2,12 +2,18 @@ import { useForm } from "react-hook-form";
 import SectionTitle from "../../Components/SectionTitle";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosPublic from "../../Hooks/useAxios";
+import useUser from "../../Hooks/useUser";
+import { useNavigate } from "react-router-dom";
 
 
 const UpdateProfile = () => {
     const { handleSubmit, register } = useForm();
-    const { user, updateUsersProfile } = useAuth();
+    const { user, updateUsersProfile, setLoading } = useAuth();
     const axiosPublic = useAxiosPublic();
+    const [userDb, refetch] = useUser();
+    const navigate = useNavigate();
+    console.log(userDb);
+
 
     const image_hosting_key = import.meta.env.VITE_image_hosting_API_key;
     const image_hosting_API = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -15,9 +21,9 @@ const UpdateProfile = () => {
     const onSubmit = async form => {
         try {
 
-            const imageFile = { image: form?.photo[0] }
+            if (form.photo.length > 0) {
 
-            if (imageFile) {
+                const imageFile = { image: form.photo[0] };
                 const { data } = await axiosPublic.post(image_hosting_API, imageFile, {
                     headers: {
                         "Content-Type": "multipart/form-data"
@@ -25,23 +31,47 @@ const UpdateProfile = () => {
                 });
 
                 const name = form?.name ? form.name : user.displayName;
-                const photo = data?.data?.display_url ? data?.data?.display_url : user.photoURL
+                const photo = data?.data?.display_url ? data?.data?.display_url : user.photoURL;
+
+                const updatedInfo = {
+                    updatedName: name,
+                    updatedPhoto: photo
+                }
 
                 updateUsersProfile(name, photo);
 
+
+
+                const { data: dataDb } = await axiosPublic.patch(`/users/${userDb._id}`, updatedInfo)
+                console.log(dataDb);
+                if (dataDb.modifiedCount > 0) {
+                    setLoading(false);
+                    refetch();
+                    navigate("/dashboard/profile")
+                };
             }
 
-            else{
+            else {
 
-                 const name = form?.name ? form.name : user.displayName;
-                 const photo = user.photoURL ;
+                const name = form?.name ? form.name : user.displayName;
+                const photo = user.photoURL;
 
-                 updateUsersProfile(name, photo);
+                updateUsersProfile(name, photo);
+
+                const updatedInfo = {
+                    updatedName: name,
+                    updatedPhoto: photo
+                }
+
+                const { data: dataDb } = await axiosPublic.patch(`/users/${userDb._id}`, updatedInfo)
+                console.log(dataDb);
+                if (dataDb.modifiedCount > 0) {
+                    setLoading(false);
+                    refetch();
+                    navigate("/dashboard/profile")
+                };
+
             }
-
-
-
-
 
 
         }

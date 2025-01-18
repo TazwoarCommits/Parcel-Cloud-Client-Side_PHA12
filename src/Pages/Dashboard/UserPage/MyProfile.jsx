@@ -12,7 +12,7 @@ const MyProfile = () => {
     return (
         <div>
             <SectionTitle title="My Profile"></SectionTitle>
-            <div className=" md:w-10/12 lg:w-7/12 mx-auto border-2 md:rounded-t-3xl border-red-500">
+            <div className=" md:w-10/12 lg:w-7/12 mx-auto border-2 md:rounded-t-3xl border-amber-600/80">
                 <div className="bg-amber-600/80 md:rounded-t-3xl p-3 md:p-6">
                    <img className="ml-8 h-52 w-52 mx-auto rounded-full"
                    src={user?.photoURL}  />
