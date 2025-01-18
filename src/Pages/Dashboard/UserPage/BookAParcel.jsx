@@ -106,7 +106,7 @@ const BookAParcel = () => {
                             <span className="label-text">Weight in Kg</span>
                         </div>
                         <input type="text" placeholder="1"  {...register("weight", { required: true , 
-                             pattern : /^\d+$/
+                             pattern : /^\d+(\.\d+)?$/
                         })} onChange={handleCost} className="input input-bordered w-full max-w-xs" />
                          {errors.weight?.type === "pattern" && <span className="text-red-800 text-sm">only numbers are allowed</span>}
                          {errors.weight?.type === "required" && <span className="text-red-800 text-sm">Required</span>}
