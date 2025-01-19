@@ -7,10 +7,14 @@ const useUser = () => {
     const axiosSecure = useAxiosSecure() ;
 
     const {data : userDb , refetch} = useQuery({
-        queryKey : ["userDb" , user.email] ,
+        queryKey : ["userDb" , user?.email] ,
         queryFn : async () => {
-            const {data} = await axiosSecure(`/users/${user.email}`)
-            return data ;
+            const {data : userData} = await axiosSecure(`/users/${user?.email}`)
+            if(!userData){
+               const {data : deliverymanData} = await axiosSecure(`/delivery-man/${user?.email}`)
+                return deliverymanData
+            }
+            return userData ;
         }
     })
     return [userDb , refetch] ;

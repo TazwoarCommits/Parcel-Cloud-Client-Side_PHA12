@@ -5,11 +5,15 @@ import feature1 from "../../../assets/feature1.jpg"
 import feature2 from "../../../assets/feature2.png"
 import feature3 from "../../../assets/feature3.png"
 import { Helmet } from "react-helmet-async";
-import useAuth from "../../../Hooks/useAuth";
+// import useAuth from "../../../Hooks/useAuth";
+// import useUser from "../../../Hooks/useUser";
 
 
 const Home = () => {
-    const {user} = useAuth() ;
+    // const {user} = useAuth() ;
+    // const [userDb] = useUser();
+    // console.log(userDb);
+    
     return (
         <div>
             <Helmet>
@@ -44,7 +48,7 @@ const Home = () => {
 
             <SectionTitle title="Our Top Delivery Men"></SectionTitle>
 
-            <p>{user?.email ? user?.email  : "Nulli"}</p>
+            {/* <p>{user?.email ? user?.email  : "Null"}</p> */}
         </div>
     );
 };

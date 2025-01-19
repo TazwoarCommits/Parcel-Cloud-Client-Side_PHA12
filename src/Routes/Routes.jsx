@@ -11,6 +11,9 @@ import MyParcels from "../Pages/Dashboard/UserPage/MyParcels";
 import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
 import UpdateParcel from "../Pages/Dashboard/UserPage/UpdateParcel";
 import AddReview from "../Pages/Dashboard/UserPage/AddReview";
+import MyDeliveryList from "../Pages/Dashboard/DeliveryMansPage/MyDeliveryList";
+import MyReviews from "../Pages/Dashboard/DeliveryMansPage/MyReviews";
+import Statistics from "../Pages/Dashboard/AdminPages/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +29,7 @@ const router = createBrowserRouter([
         path: "/dashboard",
         element: <Dashboard></Dashboard>,
         children: [
+          // users route
           {
             path : "/dashboard/updateProfile" ,
             element : <PrivateRoutes><UpdateProfile></UpdateProfile></PrivateRoutes>
@@ -51,6 +55,24 @@ const router = createBrowserRouter([
           {
             path: "/dashboard/profile",
             element: <PrivateRoutes><MyProfile></MyProfile></PrivateRoutes>,
+          },
+
+          //delivery mans routes 
+          
+          {
+            path : "/dashboard/deliveryList",
+            element : <PrivateRoutes><MyDeliveryList></MyDeliveryList></PrivateRoutes>
+          },
+          {
+            path : "/dashboard/myReview",
+            element: <PrivateRoutes><MyReviews></MyReviews></PrivateRoutes>
+          },
+
+          // Admin Routes
+
+          {
+            path : "/dashboard/stats" ,
+            element : <Statistics></Statistics> ,
           },
         ]
       },

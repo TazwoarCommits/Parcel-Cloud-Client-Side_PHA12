@@ -97,7 +97,7 @@ const Register = () => {
                                     <div className="label">
                                         <span className="label-text">Register As</span>
                                     </div>
-                                    <select defaultValue="default" {...register("role", { required: true })} className="select select-bordered">
+                                    <select defaultValue="user" {...register("role", { required: true })} className="select select-bordered">
                                         <option disabled value="default">Pick one</option>
                                         <option>User</option>
                                         <option>Delivery Man</option>

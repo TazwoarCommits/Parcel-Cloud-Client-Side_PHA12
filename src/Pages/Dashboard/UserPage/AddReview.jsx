@@ -5,12 +5,14 @@ import { useState } from "react";
 import { useLoaderData, useNavigate } from "react-router-dom";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import useAuth from './../../../Hooks/useAuth';
 
 const AddReview = () => {
     const [rating, setRating] = useState();
     const parcel = useLoaderData();
     const axiosSecure = useAxiosSecure() ;
     const navigate = useNavigate() ;
+    const {user} = useAuth() ;
 
     const ratingChanged = (newRating) => {
         setRating(newRating);
@@ -25,6 +27,10 @@ const AddReview = () => {
         const newReview = {
             rating : rating ,
             review : userReview,
+            reviewers_email : user.email ,
+            reviewers_name : user.displayName ,
+            reviewers_photo : user.photoURL,
+            createdAt : new Date() ,
         }
 
         console.log(newReview);
@@ -65,6 +71,11 @@ const AddReview = () => {
                         </form>
                         <div className="text-base-100 bg-gray-500 mx-3">
                             <h3 className="mt-6 md:mt-20 text-xl md:text-2xl ">Parcel : {parcel.parcel_type}</h3>
+                            <div className="my-4">
+                                 <p><span className="text-amber-100 font-medium">Delivery Address : </span><span className="font-extralight">{parcel.delivery_address}</span></p>
+                                 <p><span className="text-amber-100 font-medium">Reciever&apos;s Name : </span><span className="font-extralight">{parcel.receivers_name}</span></p>
+                                 <p><span className="text-amber-100 font-medium">Status : </span><span className="font-extralight text-amber-200">{parcel.status}</span></p>
+                            </div>
                         </div> 
                     </div>
                 </div>
