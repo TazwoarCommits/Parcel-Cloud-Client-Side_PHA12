@@ -41,8 +41,8 @@ const GoogleLogin = () => {
             <button
                 onClick={handleGoogleLogin}
                 className="w-full flex items-center justify-center font-semibold gap-2 mx-auto bg-amber-300 hover:bg-amber-300/80 rounded-lg py-3">
-                <FaGoogle></FaGoogle>
-                Continue Wih Google
+                <FaGoogle className="text-blue-600"></FaGoogle>
+               <span className="text-gray-600">Continue with Google</span>
             </button>
         </div>
     );

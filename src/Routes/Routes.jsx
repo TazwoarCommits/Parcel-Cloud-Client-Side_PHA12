@@ -14,11 +14,12 @@ import AddReview from "../Pages/Dashboard/UserPage/AddReview";
 import MyDeliveryList from "../Pages/Dashboard/DeliveryMansPage/MyDeliveryList";
 import MyReviews from "../Pages/Dashboard/DeliveryMansPage/MyReviews";
 import Statistics from "../Pages/Dashboard/AdminPages/Statistics";
+import Error from "../Pages/Error";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    errorElement: <h1>Error</h1>,
+    errorElement: <Error></Error>,
     element: <MainLayout></MainLayout>,
     children: [
       {
