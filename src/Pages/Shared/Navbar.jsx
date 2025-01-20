@@ -23,7 +23,6 @@ const Navbar = () => {
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
                             <IoMdNotificationsOutline className="text-xl font-bold" />
-                            <span className="badge badge-sm indicator-item">8</span>
                         </div>
                     </div>
                 </div>
@@ -58,6 +57,7 @@ const Navbar = () => {
     
                         }
                         <li>{user ? <p onClick={handleLogOut}>Logout</p> : <Link to="/register">Register</Link>}</li>
+                        <li>{user ? "" : <Link to="/login">Login</Link>}</li>
                     </ul>
                 </div>
             </div>
@@ -65,7 +65,6 @@ const Navbar = () => {
     );
 };
 
-{/* <li>{user? <Link to="/dashboard/myParcel">Dashboard</Link> : <Link to="/login">Login</Link>}</li> */ }
 
 
 export default Navbar;

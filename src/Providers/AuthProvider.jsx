@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { createContext } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
 import { app } from "../Firebase/firebase.config";
 
 export const AuthContext = createContext(null);
@@ -11,15 +11,20 @@ const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
+    const googleLogin = (provider) => {
+        setLoading(true) ;
+        return signInWithPopup(auth , provider) ;
+    }
+
     const createUser = (email, password) => {
         setLoading(true);
         return createUserWithEmailAndPassword(auth, email, password)
-    }
+    } ;
 
     const loginUser = (email, password) => {
         setLoading(true);
         return signInWithEmailAndPassword(auth, email, password)
-    }
+    } ; 
 
     const updateUsersProfile = (name, photo) => {
         setLoading(true) ;
@@ -27,7 +32,7 @@ const AuthProvider = ({ children }) => {
             displayName: name,
             photoURL: photo,
         });
-    }
+    } ;
 
     useEffect(()=>{
         const unsubscribe = onAuthStateChanged( auth , currentUser => {
@@ -38,12 +43,12 @@ const AuthProvider = ({ children }) => {
         return () => {
             return unsubscribe() ;
         }
-    },[])
+    },[]) ;
 
     const logOut = () => {
         setLoading(true) ;
         return signOut(auth);
-    }
+    } ; 
 
 
     const authInfo = {
@@ -51,17 +56,19 @@ const AuthProvider = ({ children }) => {
         setUser,
         loading,
         createUser,
+        googleLogin , 
         loginUser,
         updateUsersProfile,
         logOut,
         setLoading,
-    }
+    } ;
 
     return (
         <AuthContext.Provider value={authInfo}>
             {children}
         </AuthContext.Provider>
     );
+
 };
 
 AuthProvider.propTypes = {

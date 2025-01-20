@@ -6,11 +6,12 @@ import useAuth from "../../Hooks/useAuth";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import useAxiosPublic from "../../Hooks/useAxios";
+import GoogleLogin from "../../Components/SocialLogin/GoogleLogin";
 
 
 const Register = () => {
     const { createUser, updateUsersProfile, user } = useAuth();
-    const { handleSubmit, register, formState: { errors } , reset } = useForm();
+    const { handleSubmit, register, formState: { errors }, reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
 
@@ -43,20 +44,20 @@ const Register = () => {
                 const profileRes = await updateUsersProfile(newUser.name, newUser.photo);
                 console.log(profileRes);
 
-                if(newUser.role === "delivery man"){
-                    newUser.reviewCount = 0 ,
-                    newUser.delivered = 0 ,
-                    newUser.review = parseFloat(0).toFixed(1)
+                if (newUser.role === "delivery man") {
+                    newUser.reviewCount = 0,
+                        newUser.delivered = 0,
+                        newUser.review = parseFloat(0).toFixed(1)
 
-                    const {data} = await axiosPublic.post("/delivery-man" , newUser) ;
+                    const { data } = await axiosPublic.post("/delivery-man", newUser);
                     console.log(data);
-                } 
-                else{
-                    const {data} = await axiosPublic.post("/users" , newUser) ;
+                }
+                else {
+                    const { data } = await axiosPublic.post("/users", newUser);
                     console.log(data);
                 }
 
-                
+
 
                 toast.success("Successfully Logged In")
                 navigate("/")
@@ -64,9 +65,9 @@ const Register = () => {
             }
         }
 
-        catch(err){
+        catch (err) {
             console.log(err.message);
-            reset() ;
+            reset();
         }
 
     }
@@ -139,6 +140,11 @@ const Register = () => {
                             </div>
                             <div>
                                 <p>Already Have an Account ? <span className="text-amber-600"><Link to="/login">Login</Link></span></p>
+                            </div>
+                            <div className="my-3 py-4 border-t-2 border-amber-600 mx-auto w-10/12">
+                                <div className="w-10/12 mx-auto">
+                                    <GoogleLogin></GoogleLogin>
+                                </div>
                             </div>
                         </form>
                     </div>

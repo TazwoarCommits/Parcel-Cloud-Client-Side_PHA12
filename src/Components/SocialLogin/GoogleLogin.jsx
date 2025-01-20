@@ -1,0 +1,51 @@
+import { GoogleAuthProvider } from "firebase/auth";
+import useAuth from "../../Hooks/useAuth";
+import { FaGoogle } from "react-icons/fa";
+import useAxiosPublic from "../../Hooks/useAxios";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
+const GoogleLogin = () => {
+    const { googleLogin } = useAuth();
+    const provider = new GoogleAuthProvider;
+    const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
+
+    const handleGoogleLogin = async () => {
+        try {
+            const res = await googleLogin(provider);
+            if (res?.user) {
+                const newUser = {
+                    email: res?.user?.email,
+                    name: res?.user?.displayName,
+                    photo: res?.user?.photoURL,
+                    role: "user"
+                }
+
+                const { data } = await axiosPublic.post("/users", newUser);
+                console.log(data);
+                if (data.message || data.insertedId) {
+                    toast.success("Successfully Signed In");
+                    navigate("/");
+                }
+            }
+
+        }
+        catch (err) {
+            console.log(err);
+        }
+    }
+
+    return (
+        <div className="w-full">
+            <button
+                onClick={handleGoogleLogin}
+                className="w-full flex items-center justify-center font-semibold gap-2 mx-auto bg-amber-300 hover:bg-amber-300/80 rounded-lg py-3">
+                <FaGoogle></FaGoogle>
+                Continue Wih Google
+            </button>
+        </div>
+    );
+};
+
+export default GoogleLogin;
