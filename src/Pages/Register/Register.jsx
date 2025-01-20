@@ -21,7 +21,7 @@ const Register = () => {
 
     const onSubmit = async form => {
         try {
-            console.log("form", form, "photo", form.photo[0]);
+            // console.log("form", form, "photo", form.photo[0]);
             const imageFile = { image: form.photo[0] };
             const { data } = await axiosPublic.post(image_hosting_API, imageFile, {
                 headers: {
@@ -36,6 +36,9 @@ const Register = () => {
                 email: form.email,
                 photo: data.data.display_url,
                 role: form.role.toLowerCase(),
+                phone: form.phone,
+                totalSpent : 0 , 
+                totalBookedParcel : 0 ,
             }
 
             const userRes = await createUser(form.email, form.password);
@@ -127,13 +130,26 @@ const Register = () => {
                                     {errors.password?.type === "pattern" && <span className="text-red-700">Need 6 characters with one lowercase and uppercase character</span>}
                                 </div>
                             </div>
-                            <label className="form-control w-full">
-                                <div className="label">
-                                    <span className="label-text">Your Photo</span>
-                                </div>
-                                <input type="file"  {...register("photo", { required: true })} className="file-input file-input-bordered w-full max-w-xs" />
-                                {errors.photo && <span className="text-red-700 text-sm">Photo is Required</span>}
-                            </label>
+                            <div className="md:flex gap-4">
+                                <label className="justify-self-center form-control w-full max-w-xs">
+                                    <div className="label">
+                                        <span className="label-text">Phone</span>
+                                    </div>
+                                    <input type="text" placeholder="015XXXXXXXX"  {...register("phone", {
+                                        required: true,
+                                        pattern: /^\d+$/
+                                    })} className="input input-bordered w-full max-w-xs" />
+                                    {errors.phone?.type === "pattern" && <span className="text-red-800 text-sm">Only digits are allowed</span>}
+                                    {errors.phone?.type === "required" && <span className="text-red-800 text-sm">Required</span>}
+                                </label>
+                                <label className="form-control w-full">
+                                    <div className="label">
+                                        <span className="label-text">Your Photo</span>
+                                    </div>
+                                    <input type="file"  {...register("photo", { required: true })} className="file-input file-input-bordered w-full max-w-xs" />
+                                    {errors.photo && <span className="text-red-700 text-sm">Photo is Required</span>}
+                                </label>
+                            </div>
                             <div className="form-control mt-6">
                                 <button className="w-full py-3 bg-amber-300 hover:bg-amber-300/80 rounded-lg font-semibold text-gray-800 hover:text-black"
                                 >Register</button>

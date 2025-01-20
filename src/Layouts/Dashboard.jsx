@@ -33,7 +33,7 @@ const Dashboard = () => {
 
                             <li>
                                 <NavLink to="/dashboard/stats">
-                                    Stats
+                                    Statistics
                                 </NavLink>
                             </li>
                             <li>

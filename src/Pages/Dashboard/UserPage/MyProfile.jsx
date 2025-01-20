@@ -3,10 +3,12 @@ import SectionTitle from "../../../Components/SectionTitle";
 import useAuth from "../../../Hooks/useAuth";
 import useParcel from "../../../Hooks/useParcel";
 import { Helmet } from "react-helmet-async";
+import useUser from "../../../Hooks/useUser";
 
 
 const MyProfile = () => {
     const { user } = useAuth() ;
+    const [userDb] = useUser() ;
     const [parcel] = useParcel([]) ;
 //  console.log(user);
 
@@ -24,8 +26,9 @@ const MyProfile = () => {
                 <div className="mt-8 mb-12">
                     <p className="ml-2 md:ml-4 text-xl md:text-3xl font-medium"
                     >User name : {user.displayName}</p>
-                    <p className="ml-2 md:ml-4 ">Email : {user.email}</p>
-                    <p className="ml-2 md:ml-4 ">My Total Parcel : {parcel.length}</p>
+                    <p className="ml-2 md:ml-4 ">Email : {user?.email}</p>
+                    <p className="ml-2 md:ml-4 ">Phone : {userDb?.phone}</p>
+                    <p className="ml-2 md:ml-4 ">My Total Parcel : {parcel?.length}</p>
                 </div>
                  <div className="my-6">
                       <Link to="/dashboard/updateProfile">
