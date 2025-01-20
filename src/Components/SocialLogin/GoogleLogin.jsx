@@ -23,7 +23,6 @@ const GoogleLogin = () => {
                 }
 
                 const { data } = await axiosPublic.post("/users", newUser);
-                console.log(data);
                 if (data.message || data.insertedId) {
                     toast.success("Successfully Signed In");
                     navigate("/");

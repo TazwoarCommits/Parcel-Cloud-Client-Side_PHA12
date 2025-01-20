@@ -4,7 +4,7 @@ const ReviewCard = ({ singleReview }) => {
     const {reviewers_photo , reviewers_name , createdAt , review , rating} = {singleReview } ;
 
     return (
-        <div className="p-2 border-2 border-red-700 rounded-xl">
+        <div className="p-2 border-2 border-red-700 rounded-xl justify-items-center">
             <div className="flex items-center gap-2">
                 <img className="w-[35px] h-[35px] rounded-full"
                     src={reviewers_photo}/>

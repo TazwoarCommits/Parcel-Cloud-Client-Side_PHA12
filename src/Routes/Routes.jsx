@@ -15,6 +15,10 @@ import MyDeliveryList from "../Pages/Dashboard/DeliveryMansPage/MyDeliveryList";
 import MyReviews from "../Pages/Dashboard/DeliveryMansPage/MyReviews";
 import Statistics from "../Pages/Dashboard/AdminPages/Statistics";
 import Error from "../Pages/Error";
+import AllUSers from "../Pages/Dashboard/AdminPages/AllUSers";
+import AdminRoutes from "./AdminRoutes";
+import AllDeliveryMan from "../Pages/Dashboard/AdminPages/AllDeliveryMan";
+import AllParcels from "../Pages/Dashboard/AdminPages/AllParcels";
 
 const router = createBrowserRouter([
   {
@@ -74,6 +78,18 @@ const router = createBrowserRouter([
           {
             path : "/dashboard/stats" ,
             element : <Statistics></Statistics> ,
+          },
+          {
+            path : "/dashboard/allParcels" ,
+            element : <AdminRoutes><AllParcels></AllParcels></AdminRoutes> ,
+          },
+          {
+            path : "/dashboard/allUsers" ,
+            element : <AdminRoutes><AllUSers></AllUSers></AdminRoutes> ,
+          },
+          {
+            path : "/dashboard/allDeliveryMan" ,
+            element : <AdminRoutes><AllDeliveryMan></AllDeliveryMan></AdminRoutes> ,
           },
         ]
       },

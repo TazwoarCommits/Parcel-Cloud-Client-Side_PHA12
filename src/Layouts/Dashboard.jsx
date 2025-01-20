@@ -4,19 +4,19 @@ import { RiAccountCircleLine } from 'react-icons/ri';
 import { NavLink, Outlet } from 'react-router-dom';
 import useParcel from '../Hooks/useParcel';
 import { FaHome } from 'react-icons/fa';
-import useAuth from '../Hooks/useAuth';
+// import useAuth from '../Hooks/useAuth';
 import useUser from '../Hooks/useUser';
 // import useUser from './../Hooks/useUser';
 
 const Dashboard = () => {
     const [parcel] = useParcel([]);
-    const { logOut } = useAuth();
+    // const { logOut } = useAuth();
     const [userDb] = useUser();
-    console.log(userDb);
+    // console.log(userDb);
 
-    const handleLogOut = () => {
-        logOut();
-    }
+    // const handleLogOut = () => {
+    //     logOut();
+    // }
 
 
     return (
@@ -37,8 +37,8 @@ const Dashboard = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/allDeliveryMan">
-                                    All Delivery Man
+                                <NavLink to="/dashboard/allParcels">
+                                    All Parcels
                                 </NavLink>
                             </li>
                             <li>
@@ -47,8 +47,8 @@ const Dashboard = () => {
                                 </NavLink>
                             </li>
                             <li>
-                                <NavLink to="/dashboard/allParcels">
-                                    All Parcels
+                                <NavLink to="/dashboard/allDeliveryMan">
+                                    All Delivery Man
                                 </NavLink>
                             </li>
 
@@ -87,7 +87,7 @@ const Dashboard = () => {
                     </>
                     }
 
-                    <li onClick={handleLogOut}> Log-Out </li>
+                    {/* <li onClick={handleLogOut}> Log-Out </li> */}
                 </ul>
             </div>
             <div className='w-11/12 mx-auto'>
