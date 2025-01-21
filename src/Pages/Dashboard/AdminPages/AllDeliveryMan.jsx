@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../../Components/SectionTitle";
-
+import { FaStar } from "react-icons/fa";
 
 const AllDeliveryMan = () => {
     const axiosSecure = useAxiosSecure();
@@ -37,7 +37,7 @@ const AllDeliveryMan = () => {
                             <td>{man.name}</td>
                             <td>{man?.phone ? man?.phone: "N/A"}</td>
                             <td>{man?.delivered}</td>
-                            <td>{man?.review}</td>
+                            <td className="flex gap-1 items-center ">{man?.review} <span className="text-amber-400"><FaStar /></span></td>
                         </tr>)
                         }
                     </tbody>
