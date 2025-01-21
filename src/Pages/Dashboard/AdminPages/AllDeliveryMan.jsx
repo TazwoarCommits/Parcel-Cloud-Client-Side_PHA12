@@ -6,7 +6,7 @@ import { FaStar } from "react-icons/fa";
 
 const AllDeliveryMan = () => {
     const axiosSecure = useAxiosSecure();
-    const { data: deliverymen = [], refetch } = useQuery({
+    const { data: deliverymen = [] } = useQuery({
         queryKey: ["deliverymen"],
         queryFn: async () => {
             const { data } = await axiosSecure("/delivery-man");
