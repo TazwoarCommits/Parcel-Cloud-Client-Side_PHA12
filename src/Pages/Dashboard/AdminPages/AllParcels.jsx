@@ -134,7 +134,7 @@ const AllParcels = () => {
                     <div className="modal-action">
                         <form method="dialog">
 
-                            <button onClick={updatedParcel} className="btn">Close</button>
+                            <button onClick={updatedParcel} className="btn">Done</button>
                         </form>
                     </div>
                 </div>

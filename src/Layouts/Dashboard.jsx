@@ -1,23 +1,15 @@
 import { BsBoxFill } from 'react-icons/bs';
-import { MdAddCard } from 'react-icons/md';
+import { MdAddCard, MdOutlineDeliveryDining, MdPlaylistAddCheck, MdRateReview } from 'react-icons/md';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import { NavLink, Outlet } from 'react-router-dom';
 import useParcel from '../Hooks/useParcel';
-import { FaHome } from 'react-icons/fa';
-// import useAuth from '../Hooks/useAuth';
+import { FaBoxes, FaHome, FaUsers } from 'react-icons/fa';
+import { IoStatsChartOutline } from "react-icons/io5";
 import useUser from '../Hooks/useUser';
-// import useUser from './../Hooks/useUser';
 
 const Dashboard = () => {
     const [parcel] = useParcel([]);
-    // const { logOut } = useAuth();
     const [userDb] = useUser();
-    // console.log(userDb);
-
-    // const handleLogOut = () => {
-    //     logOut();
-    // }
-
 
     return (
         <div className="flex flex-col md:flex-row gap-6">
@@ -33,22 +25,22 @@ const Dashboard = () => {
 
                             <li>
                                 <NavLink to="/dashboard/stats">
-                                    Statistics
+                                   <span className='text-lg'><IoStatsChartOutline /></span> Statistics
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/dashboard/allParcels">
-                                    All Parcels
+                                   <span className='text-lg'><FaBoxes /></span> Parcels
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/dashboard/allUsers">
-                                    All Users
+                                   <span className='text-lg'><FaUsers /></span> Users
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink to="/dashboard/allDeliveryMan">
-                                    All Delivery Man
+                                  <span className='text-base'><MdOutlineDeliveryDining /></span> Delivery-Men
                                 </NavLink>
                             </li>
 
@@ -76,18 +68,17 @@ const Dashboard = () => {
                     {userDb?.role === "delivery man" && <>
                         <li>
                             <NavLink to="/dashboard/deliveryList">
-                                My Deliveries
+                               <span className='text-lg'><MdPlaylistAddCheck /></span> My Deliveries
                             </NavLink>
                         </li>
                         <li>
                             <NavLink to="/dashboard/myReview">
-                                My Review
+                               <span className='text-lg'><MdRateReview /></span> My Review
                             </NavLink>
                         </li>
                     </>
                     }
 
-                    {/* <li onClick={handleLogOut}> Log-Out </li> */}
                 </ul>
             </div>
             <div className='w-11/12 mx-auto'>
