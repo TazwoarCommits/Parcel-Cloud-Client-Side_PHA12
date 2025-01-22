@@ -24,7 +24,7 @@ const MyDeliveryList = () => {
     const handleStatus = async (newStatus, id) => {
         try {
 
-            const status = {newStatus};
+            const status = {newStatus , deliverymanId : userDb._id};
 
             if (newStatus === "cancelled") {
                 Swal.fire({

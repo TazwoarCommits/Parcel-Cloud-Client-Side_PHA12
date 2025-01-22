@@ -87,9 +87,9 @@ const MyParcels = () => {
                                 <th>{idx + 1}</th>
                                 <td>{item.parcel_type}</td>
                                 <td>{item.requested_date}</td>
-                                <td>{item?.approx_del_date ? item?.approx_del_date : "pending"}</td>
+                                <td>{item?.approximateDeliveryDate ? format(new Date(item?.approximateDeliveryDate) , "MM/dd/yyyy") : "pending"}</td>
                                 <td>{format(new Date(item.createdAt), "MM/dd/yyyy")}</td>
-                                <td>{item?.deliveryMen_id ? item?.deliveryMen_id : "yet to assign"}</td>
+                                <td>{item?.deliveryManId ? item?.deliveryManId : "yet to assign"}</td>
                                 <td>{item.status}</td>
                                 <td>{item.status === "pending" ?
                                     <div>
