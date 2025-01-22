@@ -50,7 +50,7 @@ const Register = () => {
                 if (newUser.role === "delivery man") {
                     newUser.reviewCount = 0,
                         newUser.delivered = 0,
-                        newUser.review = parseFloat(0).toFixed(1)
+                        newUser.review = 0
 
                     const { data } = await axiosPublic.post("/delivery-man", newUser);
                     console.log(data);

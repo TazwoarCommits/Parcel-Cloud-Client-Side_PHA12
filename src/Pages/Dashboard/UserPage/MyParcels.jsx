@@ -6,22 +6,90 @@ import { Link } from "react-router-dom";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
+import ReactStars from 'react-stars'
+import useAuth from "../../../Hooks/useAuth";
 
 const MyParcels = () => {
+    const {user} = useAuth() ;
     const [parcel, refetch] = useParcel();
-    const [filterBy, setFilterBy] = useState("");
     const axiosSecure = useAxiosSecure();
+    const [filterBy, setFilterBy] = useState("");
+    const [review , setReview] = useState("") ; 
+    const [rating , setRating] = useState(0) ; 
+    const [ id , setId] = useState("") ; 
 
+    // set Rating in a state 
+    const ratingChanged = (newRating) => {
+        setRating(newRating) ;
+    }
+
+    // set rev in a state 
+    const handleReview = e => {
+        setReview(e.target.value) ;
+    }
+
+    // posting a new Review
+
+    const handleNewRev = async () => {
+        const newRev = {
+            review : review ,
+            rating : rating,
+            deliveryManId : id ,
+            reviewersEmail : user.email ,
+            reviewersName : user.displayName , 
+            reviewersPhoto : user.photoURL ,
+            createdAt : new Date() ,
+        }
+
+      if(newRev.review !== ""){
+        const {data} = await axiosSecure.post("/reviews" , newRev)
+        if(data.insertedId){
+          setRating(0);
+          setId("") ;
+          setReview("");
+          refetch() ;
+          Swal.fire({
+             position: "center",
+             icon: "success",
+             title: "Thanks for your feedback",
+             showConfirmButton: false,
+             timer: 1500
+           });
+           
+        }
+      }
+
+      else{
+        setRating(0);
+          setId("") ;
+        Swal.fire({
+            position: "center",
+            icon: "warning",
+            title: "Please write your experience",
+            showConfirmButton: false,
+            timer: 1500
+          });
+      }
+
+    }
+
+
+    //  setting filter value in state
     const handleFilter = (e) => {
         setFilterBy(e.target.value);
     }
+
+    //  filter parcels according to previously set state if nothing found return all
 
     const filteredParcels = parcel.filter((item) => {
         if (!filterBy) {
             return true
         };
         return item.status.toLowerCase() === filterBy.toLowerCase();
-    })
+    });
+
+
+    // cancelling a parcel before when it is in pending status 
 
     const handleDelete = id => {
         Swal.fire({
@@ -87,28 +155,31 @@ const MyParcels = () => {
                                 <th>{idx + 1}</th>
                                 <td>{item.parcel_type}</td>
                                 <td>{item.requested_date}</td>
-                                <td>{item?.approximateDeliveryDate ? format(new Date(item?.approximateDeliveryDate) , "MM/dd/yyyy") : "pending"}</td>
+                                <td>{item?.approximateDeliveryDate ? format(new Date(item?.approximateDeliveryDate), "MM/dd/yyyy") : "pending"}</td>
                                 <td>{format(new Date(item.createdAt), "MM/dd/yyyy")}</td>
                                 <td>{item?.deliveryManId ? item?.deliveryManId : "yet to assign"}</td>
                                 <td>{item.status}</td>
                                 <td>{item.status === "pending" ?
-                                    <div>
+                                    <div className="flex gap-1">
                                         <Link to={`/dashboard/updateParcel/${item._id}`}>
                                             <button
-                                                className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Update</button>
+                                                className="my-4 text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Update</button>
                                         </Link>
                                         <button onClick={() => handleDelete(item._id)}
-                                            className="text-[10px] mx-1 px-2 py-1 rounded-md bg-red-700 text-white font-medium">Cancel</button>
+                                            className="my-4 text-[10px] mx-1 px-2 py-1 rounded-md bg-red-700 text-white font-medium">Cancel</button>
                                     </div> :
-                                    <div>
+                                    <div className="flex gap-1">
                                         <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Update</button>
 
                                         <button disabled className="text-[10px] mx-1 px-2 py-1 rounded-md bg-gray-700 text-white font-medium">Cancel</button>
                                     </div>}</td>
                                 <td>{item.status === "delivered" ?
-                                    <Link to={`/dashboard/addReview/${item._id}`}>
-                                        <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Review</button>
-                                    </Link>
+                                    <button onClick={() => {setId(item.deliveryManId) ; document.getElementById('my_modal_5').showModal()}}
+                                     className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium"
+                                    >Review</button>
+                                    // <Link to={`/dashboard/addReview/${item._id}`}>
+                                    //     <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Review</button>
+                                    // </Link>
                                     :
                                     <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Review</button>}
                                 </td>
@@ -120,6 +191,28 @@ const MyParcels = () => {
                     </tbody>
                 </table>
             </div>
+
+            {/* -----------Review Modal---------- */}
+            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
+                <div className="modal-box">
+                    <div className="mt-2">
+                        <ReactStars
+                            count={5}
+                            value={rating}
+                            onChange={ratingChanged}
+                            size={24}
+                            color2={'#ffd700'} />
+                        <textarea onChange={handleReview}
+                         className="p-4 border-2 rounded-xl w-full h-[200px] resize-none" placeholder="write your review" name="review"
+                        ></textarea>
+                    </div>
+                    <div className="modal-action">
+                        <form method="dialog">
+                            <button className="btn" onClick={()=>handleNewRev()}>Close</button>
+                        </form>
+                    </div>
+                </div>
+            </dialog>
         </div>
     );
 };

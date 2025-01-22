@@ -10,7 +10,7 @@ import MyProfile from "../Pages/Dashboard/UserPage/MyProfile";
 import MyParcels from "../Pages/Dashboard/UserPage/MyParcels";
 import UpdateProfile from "../Pages/UpdateProfile/UpdateProfile";
 import UpdateParcel from "../Pages/Dashboard/UserPage/UpdateParcel";
-import AddReview from "../Pages/Dashboard/UserPage/AddReview";
+// import AddReview from "../Pages/Dashboard/UserPage/AddReview";
 import MyDeliveryList from "../Pages/Dashboard/DeliveryMansPage/MyDeliveryList";
 import MyReviews from "../Pages/Dashboard/DeliveryMansPage/MyReviews";
 import Statistics from "../Pages/Dashboard/AdminPages/Statistics";
@@ -43,11 +43,11 @@ const router = createBrowserRouter([
             path: "/dashboard/myParcel",
             element: <PrivateRoutes><MyParcels></MyParcels></PrivateRoutes>,
           },
-          {
-            path: "/dashboard/addReview/:id" ,
-            element : <PrivateRoutes><AddReview></AddReview></PrivateRoutes> ,
-            loader : ({params}) => fetch(`http://localhost:5000/parcels/${params.id}`)
-          },
+          // {
+          //   path: "/dashboard/addReview/:id" ,
+          //   element : <PrivateRoutes><AddReview></AddReview></PrivateRoutes> ,
+          //   loader : ({params}) => fetch(`http://localhost:5000/parcels/${params.id}`) //
+          // },
           {
             path: "/dashboard/updateParcel/:id",
             element: <PrivateRoutes><UpdateParcel></UpdateParcel></PrivateRoutes>,
