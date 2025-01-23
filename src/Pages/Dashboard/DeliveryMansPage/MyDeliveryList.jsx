@@ -83,9 +83,10 @@ const MyDeliveryList = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
+                            <th>Recievers&apos;s Name</th>
                             <th>User&apos; Phone</th>
-                            <th>Requested Delivery Date</th>
-                            <th>Approximate Delivery Date</th>
+                            <th>Req Delivery Date</th>
+                            <th>Approx Delivery Date</th>
                             <th>Receivers phone </th>
                             <th>Receivers Address</th>
                             <th>View Location Button</th>
@@ -97,21 +98,22 @@ const MyDeliveryList = () => {
                             deliveries.map((delivery, idx) => <tr key={delivery._id}>
                                 <th>{idx + 1}</th>
                                 <td>{delivery.name}</td>
+                                <td>{delivery.receivers_name}</td>
                                 <td>{delivery.phone}</td>
                                 <td>{format(new Date(delivery.requested_date), "MM/dd/yyyy")}</td>
                                 <td>{format(new Date(delivery.approximateDeliveryDate), "MM/dd/yyyy")}</td>
                                 <td>{delivery.receivers_phone}</td>
                                 <td>{delivery.delivery_address}</td>
-                                <td><button>See Location</button></td>
+                                <td><button>Location</button></td>
                                 <td>{delivery?.status === "delivered" || delivery?.status === "cancelled" ?
-                                    <button className="text-xs rounded-lg py-2 px-4 font-medium bg-green-600 text-white">{delivery.status}</button> :
+                                    <button className="text-xs rounded-lg py-2 px-2 font-medium bg-green-600 text-white">{delivery.status}</button> :
                                     <button onClick={() => handleStatus("delivered", delivery._id)}
-                                        className="flex items-center text-xs rounded-lg py-2 px-4 font-medium bg-amber-600 hover:bg-amber-600/80 text-white">Delivered <span><MdCloudDone /></span></button>
+                                        className="flex items-center text-xs rounded-lg py-2 px-2 font-medium bg-amber-600 hover:bg-amber-600/80 text-white">Delivered <span><MdCloudDone /></span></button>
                                 }</td>
                                 <td>{delivery?.status === "cancelled" || delivery?.status === "delivered" ?
-                                    <button className="text-xs rounded-lg py-2 px-4 font-medium bg-gray-700 text-white">{delivery.status}</button> :
+                                    <button className="text-xs rounded-lg py-2 px-2 font-medium bg-gray-700 text-white">{delivery.status}</button> :
                                     <button onClick={() => handleStatus("cancelled", delivery._id)}
-                                        className="flex items-center text-xs rounded-lg py-2 px-4 font-medium bg-red-700 hover:bg-red-700/80 text-white">Cancel <span><MdCancel /></span></button>
+                                        className="flex items-center text-xs rounded-lg py-2 px-24 font-medium bg-red-700 hover:bg-red-700/80 text-white">Cancel <span><MdCancel /></span></button>
                                 }</td>
                             </tr>)
                         }

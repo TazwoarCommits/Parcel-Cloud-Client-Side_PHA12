@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import { useState } from "react";
 
-
+// for pagination
 const AllUSers = () => {
     const axiosSecure = useAxiosSecure();
     const [currentPage , setCurrentPage] = useState(0) ; 
@@ -20,7 +20,7 @@ const AllUSers = () => {
         }
     })
 
-    // for pagination
+    
     // fetching users count to calculate page numbers
     const { data: usersCount = { count: 0 }, refetch: reCount } = useQuery({
         queryKey: ["usersCount"],
