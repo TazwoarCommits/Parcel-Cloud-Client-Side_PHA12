@@ -10,7 +10,7 @@ import GoogleLogin from "../../Components/SocialLogin/GoogleLogin";
 
 
 const Register = () => {
-    const { createUser, updateUsersProfile, user } = useAuth();
+    const { createUser, updateUsersProfile, user , } = useAuth();
     const { handleSubmit, register, formState: { errors }, reset } = useForm();
     const axiosPublic = useAxiosPublic();
     const navigate = useNavigate();
@@ -21,6 +21,7 @@ const Register = () => {
 
     const onSubmit = async form => {
         try {
+            toast("Wait.....it may take while")
             // console.log("form", form, "photo", form.photo[0]);
             const imageFile = { image: form.photo[0] };
             const { data } = await axiosPublic.post(image_hosting_API, imageFile, {
@@ -29,7 +30,7 @@ const Register = () => {
                 }
             });
 
-            console.log(data)
+            // console.log(data)
 
             const newUser = {
                 name: form.name,
@@ -59,8 +60,7 @@ const Register = () => {
                     const { data } = await axiosPublic.post("/users", newUser);
                     console.log(data);
                 }
-
-
+          
 
                 toast.success("Successfully Logged In")
                 navigate("/")
@@ -70,6 +70,7 @@ const Register = () => {
 
         catch (err) {
             console.log(err.message);
+            toast.error(`${err.message}`)
             reset();
         }
 

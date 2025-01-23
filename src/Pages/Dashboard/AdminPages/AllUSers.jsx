@@ -3,18 +3,43 @@ import useAxiosSecure from "../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet-async";
 import SectionTitle from "../../../Components/SectionTitle";
 import Swal from "sweetalert2";
+import toast from "react-hot-toast";
+import { useState } from "react";
 
 
 const AllUSers = () => {
     const axiosSecure = useAxiosSecure();
+    const [currentPage , setCurrentPage] = useState(0) ; 
+    const itemPerPage = 5 ;  // 5 users per page
 
     const { data: users = [], refetch } = useQuery({
-        queryKey: ["users"],
+        queryKey: ["users" , currentPage , itemPerPage],
         queryFn: async () => {
-            const { data } = await axiosSecure("/users");
+            const { data } = await axiosSecure(`/users?page=${currentPage}&size=${itemPerPage}`);
             return data
         }
     })
+
+    // for pagination
+    // fetching users count to calculate page numbers
+    const { data: usersCount = { count: 0 }, refetch: reCount } = useQuery({
+        queryKey: ["usersCount"],
+        queryFn: async () => {
+            const { data } = await axiosSecure("/usersCount");
+            return data
+        }
+    })
+
+     
+    const numbersOfPages = Math.ceil(usersCount.count / itemPerPage); //total needed pages
+
+    const pages = [...Array(numbersOfPages || 0).keys()];
+
+    console.log(pages , currentPage);
+
+
+
+    // Make a user Admin by Only Admin ---------------------------------
 
     const makeAdmin = (id) => {
         try {
@@ -46,6 +71,8 @@ const AllUSers = () => {
     }
 
 
+    // Make a user DeliveryMan by Only Admin----------------------------
+
     const makeDeliveryman = async id => {
         try {
             const desiredUser = users.find(user => user._id === id)
@@ -68,6 +95,7 @@ const AllUSers = () => {
                 console.log(data);
                 if (data.deletedCount > 0) {
                     refetch();
+                    reCount();
                     Swal.fire({
                         position: "center",
                         icon: "success",
@@ -81,6 +109,7 @@ const AllUSers = () => {
         }
         catch (err) {
             console.log(err);
+            toast.error(err.message);
         }
     }
 
@@ -126,8 +155,15 @@ const AllUSers = () => {
                         </tr>)}
                     </tbody>
                 </table>
+                <div className="pagination my-6 w-1/2 mx-auto ">
+                    {
+                        pages.map((page , idx) => <button onClick={()=>setCurrentPage(page)}
+                         key={page} 
+                         className={`mx-2 p-2 md:p-3 font-medium rounded-lg ${page===currentPage? "bg-amber-600 text-white": "bg-amber-100"}`}
+                         >{idx+1}</button>)
+                    }
+                </div>
             </div>
-
         </div>
     );
 };
