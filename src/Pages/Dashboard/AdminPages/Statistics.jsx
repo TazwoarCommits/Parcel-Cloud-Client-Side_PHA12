@@ -14,8 +14,8 @@ const Statistics = () => {
     })
 
     const dates = parcels.map(item => item._id);
-    const bookings = parcels.map(item => item.totalBooked)
-    const delivered = parcels.map(item => item.totalDelivered)
+    const bookings = parcels.map(item => item.totalBooked) ;
+    const delivered = parcels.map(item => item.totalDelivered) ; 
 
     const series = [
         {
@@ -26,6 +26,8 @@ const Statistics = () => {
     const options = {
         chart: {
             type: "bar",
+            width: '100%' ,
+            redrawOnParentResize: true,
         },
         xaxis: {
             categories: dates, // Set dates for x-axis
@@ -42,7 +44,8 @@ const Statistics = () => {
     const options2 = {
         chart: {
             type: "line",
-            width: '100%'
+            width: '100%' ,
+            redrawOnParentResize: true,
         },
         xaxis: {
             categories: dates, // Set dates for x-axis
@@ -68,12 +71,12 @@ const Statistics = () => {
     return (
         <div>
             <SectionTitle title="Statistics"></SectionTitle>
-            <div className="flex flex-col md:flex-row md:gap-16">
-                <div className="my-8 md:my-16 w-300px overflow-hidden">
-                    <ApexCharts options={options} series={series} type="bar" width={350} height={250} />
+            <div>
+                <div className="my-8 md:my-16 lg:w-[60%] overflow-hidden">
+                    <ApexCharts options={options} series={series} type="bar" height={250} />
                 </div>
-                <div className="my-8 md:my-16 overflow-hidden">
-                    <ApexCharts options={options2} series={series2} type="line" width={350}  height={250} />
+                <div className="my-8 md:my-16 lg:w-[60%] overflow-hidden">
+                    <ApexCharts options={options2} series={series2} type="line"   height={250} />
                 </div>
             </div>
         </div>
