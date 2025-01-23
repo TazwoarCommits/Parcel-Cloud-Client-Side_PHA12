@@ -15,7 +15,7 @@ const AllUSers = () => {
     const { data: users = [], refetch } = useQuery({
         queryKey: ["users" , currentPage , itemPerPage],
         queryFn: async () => {
-            const { data } = await axiosSecure(`/users?page=${currentPage}&size=${itemPerPage}`);
+            const { data } = await axiosSecure(`/users?page=${currentPage}&limit=${itemPerPage}`);
             return data
         }
     })
@@ -34,8 +34,6 @@ const AllUSers = () => {
     const numbersOfPages = Math.ceil(usersCount.count / itemPerPage); //total needed pages
 
     const pages = [...Array(numbersOfPages || 0).keys()];
-
-    console.log(pages , currentPage);
 
 
 
@@ -155,7 +153,7 @@ const AllUSers = () => {
                         </tr>)}
                     </tbody>
                 </table>
-                <div className="pagination my-6 w-1/2 mx-auto ">
+                <div className="pagination my-6 md:my-14 w-1/2 mx-auto ">
                     {
                         pages.map((page , idx) => <button onClick={()=>setCurrentPage(page)}
                          key={page} 
