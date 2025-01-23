@@ -8,6 +8,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useState } from "react";
 import Swal from "sweetalert2";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AllParcels = () => {
     const [deliveryman] = useDeliveryman();
@@ -15,11 +16,14 @@ const AllParcels = () => {
     const [startDate, setStartDate] = useState("");
     const [parcelID, setParcelID] = useState("");
     const [selectedDeliveryMan, setSelectedDeliveryMan] = useState("");
+    const [startSortDate, setStartSortDate] = useState("");
+    const [endtSortDate, setEndSortDate] = useState("");
+
 
     const { data: parcels = [], refetch: reload } = useQuery({
-        queryKey: ["parcels"],
+        queryKey: ["parcels" , startSortDate , endtSortDate ],
         queryFn: async () => {
-            const { data } = await axiosSecure("/parcels")
+            const { data } = await axiosSecure(`/parcels?sortStart=${startSortDate}&sortEnd=${endtSortDate}`)
             return data
         }
     });
@@ -35,25 +39,24 @@ const AllParcels = () => {
 
             try {
                 const { data } = await axiosSecure.patch(`/parcels/admin/${parcelID}`, parcelToUpdate)
-                if(data.modifiedCount > 0){
+                if (data.modifiedCount > 0) {
                     Swal.fire({
                         position: "center",
                         icon: "success",
                         title: "Your work has been saved",
                         showConfirmButton: false,
                         timer: 1500
-                      });
+                    });
 
-                      setParcelID("") ; 
-                      setSelectedDeliveryMan("") ;
-                      reload();
+                    setParcelID("");
+                    setSelectedDeliveryMan("");
+                    reload();
                 }
             }
             catch (err) {
                 console.log(err);
             }
 
-            // console.log(parcelToUpdate , parcelID);
         }
 
     }
@@ -64,6 +67,13 @@ const AllParcels = () => {
         <div>
             <Helmet><title>Parcel Cloud | </title></Helmet>
             <SectionTitle title="All Parcels"></SectionTitle>
+            <div className="mb-3">
+                <p className="text-gray-700 font-light my-2 ">Search By Date Range : </p>
+                <div className="flex flex-col md:flex-row gap-4">
+                    <DatePicker placeholderText="Starting Date Range" className="p-1 select-bordered border-2 w-full rounded-md" selected={startSortDate} onChange={(date) => setStartSortDate(date)} />
+                    <DatePicker placeholderText="Ending Date Range" className="p-1 select-bordered border-2 w-full rounded-md" selected={endtSortDate} onChange={(date) => setEndSortDate(date)} />
+                </div>
+            </div>
             <div className="overflow-x-auto">
                 <table className="table">
                     <thead>
@@ -89,13 +99,13 @@ const AllParcels = () => {
                                 <td>{parcel?.cost}</td>
                                 <td>{parcel?.status}</td>
                                 <td>{
-                                    parcel?.status === "delivered" || parcel?.status ===  "in-transit" ? 
-                                    <button  disabled
-                                    className=" text-xs py-2 px-4 font-medium bg-gray-700 text-white rounded-lg">Manage</button> 
-                                    : 
-                                    <button onClick={() => { document.getElementById('my_modal_4').showModal(); setParcelID(parcel._id) }}
-                                    className="text-xs text-white py-2 px-4 font-medium bg-amber-600 hover:bg-amber-600/80 rounded-lg">Manage</button>
-                                    }</td>
+                                    parcel?.status === "delivered" || parcel?.status === "in-transit" ?
+                                        <button disabled
+                                            className=" text-xs py-2 px-4 font-medium bg-gray-700 text-white rounded-lg">Manage</button>
+                                        :
+                                        <button onClick={() => { document.getElementById('my_modal_4').showModal(); setParcelID(parcel._id) }}
+                                            className="text-xs text-white py-2 px-4 font-medium bg-amber-600 hover:bg-amber-600/80 rounded-lg">Manage</button>
+                                }</td>
                             </tr>)
                         }
                     </tbody>
@@ -104,16 +114,16 @@ const AllParcels = () => {
 
             {/*---------------- modal------------- */}
             <dialog id="my_modal_4" className="modal">
-                <div className="modal-box w-11/12 h-[350px] max-w-5xl">
+                <div className="modal-box w-11/12 max-w-5xl">
                     <h3 className="font-bold text-lg">Manage Parcel</h3>
-                    <div >
+                    <div className="h-[250px]" >
                         <div className="flex flex-col md:flex-row lg:gap-6 justify-center items-center">
                             <label className="form-control">
                                 <div className="label">
                                     <span className="label-text">Approximate Delivery Date</span>
                                 </div>
                                 <div>
-                                    <DatePicker className="select-bordered border-2 w-full rounded-md" selected={startDate} onChange={(date) => setStartDate(date)} />
+                                    <DatePicker className="p-2 select-bordered border-2 w-full rounded-md" selected={startDate} onChange={(date) => setStartDate(date)} />
                                 </div>
                             </label>
                             <label className="form-control w-full md:w-1/2 ">

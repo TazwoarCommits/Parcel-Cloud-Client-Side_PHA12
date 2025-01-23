@@ -74,11 +74,6 @@ const MyParcels = () => {
     }
 
 
-    //  setting filter value in state
-    const handleFilter = (e) => {
-        setFilterBy(e.target.value);
-    }
-
     //  filter parcels according to previously set state if nothing found return all
 
     const filteredParcels = parcel.filter((item) => {
@@ -124,7 +119,7 @@ const MyParcels = () => {
             </Helmet>
             <SectionTitle title="My Parcel"></SectionTitle>
             <div className="my-8 md:my-16">
-                <select name="" id="" onChange={handleFilter} className="p-4 text-semibold border-2 border-amber-400 rounded-xl">
+                <select name="" id="" onChange={(e)=>setFilterBy(e.target.value)} className="p-4 text-semibold border-2 border-amber-400 rounded-xl">
                     <option value="">Filter By</option>
                     <option value="">All</option>
                     <option className="hover:bg-amber-400" value="delivered">Delivered</option>
