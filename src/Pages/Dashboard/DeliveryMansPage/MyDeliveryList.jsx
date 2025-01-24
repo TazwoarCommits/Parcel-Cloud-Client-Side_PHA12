@@ -113,7 +113,7 @@ const MyDeliveryList = () => {
                                 <td>{delivery?.status === "cancelled" || delivery?.status === "delivered" ?
                                     <button className="text-xs rounded-lg py-2 px-2 font-medium bg-gray-700 text-white">{delivery.status}</button> :
                                     <button onClick={() => handleStatus("cancelled", delivery._id)}
-                                        className="flex items-center text-xs rounded-lg py-2 px-24 font-medium bg-red-700 hover:bg-red-700/80 text-white">Cancel <span><MdCancel /></span></button>
+                                        className="flex items-center text-xs rounded-lg py-2 px-2 font-medium bg-red-700 hover:bg-red-700/80 text-white">Cancel <span><MdCancel /></span></button>
                                 }</td>
                             </tr>)
                         }

@@ -74,7 +74,7 @@ const AllParcels = () => {
                     <DatePicker placeholderText="Ending Date Range" className="p-1 select-bordered border-2 w-full rounded-md" selected={endtSortDate} onChange={(date) => setEndSortDate(date)} />
                 </div>
             </div>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto mb-48">
                 <table className="table">
                     <thead>
                         <tr>

@@ -19,7 +19,7 @@ const AllDeliveryMan = () => {
         <div>
             <Helmet><title>Parcel Cloud | All Delivery Men</title></Helmet>
             <SectionTitle title="All Delivery-men"></SectionTitle>
-            <div className="overflow-x-auto">
+            <div className="overflow-x-auto mb-48">
                 <table className="table">
                     <thead>
                         <tr>
