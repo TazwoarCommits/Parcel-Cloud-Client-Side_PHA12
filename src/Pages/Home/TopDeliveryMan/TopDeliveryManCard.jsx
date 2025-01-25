@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { FaTrophy } from "react-icons/fa";
+import { FaStar, FaTrophy } from "react-icons/fa";
 import AOS from 'aos';
 import 'aos/dist/aos.css';
 AOS.init();
@@ -18,7 +18,7 @@ const TopDeliveryManCard = ({ deliveryman, idx }) => {
             <div className="mt-16">
                 <h4 className="special text-4xl">{name}</h4>
                 <div>
-                    <p>{review} with</p>
+                    <p className="flex items-center gap-1">{review} <FaStar className="text-amber-300"></FaStar> with</p>
                     <p>{delivered} delivery</p>
                 </div>
             </div>

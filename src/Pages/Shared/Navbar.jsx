@@ -19,6 +19,7 @@ const Navbar = () => {
                     <Link to="/">Parcel Cloud</Link></p>
             </div>
             <div className="flex-none">
+                <Link to="/"><p className="text-sm">Home</p></Link>
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -51,10 +52,10 @@ const Navbar = () => {
 
                         }
                         {
-                                user && userDb?.role === "delivery man" && <li>
+                            user && userDb?.role === "delivery man" && <li>
                                 <Link to="/dashboard/deliveryList">Dashboard</Link>
                             </li>
-    
+
                         }
                         <li>{user ? <p onClick={handleLogOut}>Logout</p> : <Link to="/register">Register</Link>}</li>
                         <li>{user ? "" : <Link to="/login">Login</Link>}</li>
