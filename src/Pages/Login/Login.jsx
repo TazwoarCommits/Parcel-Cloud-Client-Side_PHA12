@@ -64,7 +64,7 @@ const Login = () => {
             <div className="hero bg-base-200 min-h-screen">
                 <div className="hero-content flex-col lg:flex-row-reverse">
                     <div className="text-center w-11/12 lg:w-1/2 lg:text-left">
-                        <Lottie animationData={login} className="max-w-96"></Lottie>
+                        <Lottie animationData={login} className="max-w-80"></Lottie>
                     </div>
                     <div className="card bg-base-100 w-11/12 lg:w-1/2 shadow-2xl">
                         <form onSubmit={handleLogin} className="card-body">

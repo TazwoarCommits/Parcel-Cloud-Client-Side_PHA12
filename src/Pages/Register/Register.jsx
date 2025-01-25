@@ -82,13 +82,13 @@ const Register = () => {
                 <title>Parcel Cloud | Register</title>
             </Helmet>
             <div className="hero bg-base-200 min-h-screen">
-                <div className="hero-content w-full flex-col lg:flex-row-reverse lg:gap-16">
+                <div className="hero-content w-11/12 flex-col lg:flex-row-reverse lg:gap-16 mx-auto">
                     <div className="text-center lg:text-left md:w-1/2">
-                        <Lottie animationData={parcel} className="max-w-96"></Lottie>
+                        <Lottie animationData={parcel} className="max-w-80"></Lottie>
                     </div>
-                    <div className="card bg-base-100 md:w-1/2 shrink-0 shadow-2xl">
+                    <div className="bg-base-100  md:w-1/2 shrink-0 shadow-2xl">
                         <form onSubmit={handleSubmit(onSubmit)}
-                            className="card-body max-w[550px]">
+                            className="card-body max-w[520px] mx-auto">
                             <h2 className="text-3xl font-semibold">Streamline Your Deliveries</h2>
                             <div className="md:flex gap-4">
                                 <div className="form-control md:w-1/2">
@@ -158,8 +158,8 @@ const Register = () => {
                             <div>
                                 <p>Already Have an Account ? <span className="text-amber-600"><Link to="/login">Login</Link></span></p>
                             </div>
-                            <div className="my-3 py-4 border-t-2 border-amber-600 mx-auto w-10/12">
-                                <div className="w-10/12 mx-auto">
+                            <div className="my-3 py-4 border-t-2 border-amber-600 mx-auto w-11/12">
+                                <div className="md:w-11/12 mx-auto">
                                     <GoogleLogin></GoogleLogin>
                                 </div>
                             </div>

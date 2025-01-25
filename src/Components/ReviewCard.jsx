@@ -7,7 +7,7 @@ const ReviewCard = ({ singleReview }) => {
     console.log(singleReview);
 
     return (
-        <div className="p-2 border-2 border-gray-600 rounded-xl ">
+        <div className="p-2 border-2 border-amber-600 rounded-xl ">
             <div className="flex items-center gap-2">
                 <img className="w-[35px] h-[35px] rounded-full"
                     src={reviewersPhoto}/>
@@ -17,7 +17,7 @@ const ReviewCard = ({ singleReview }) => {
                 </div>
             </div>
             <div className="my-2 text-base">
-                <p className="flex items-center"><span className="font-medium">Rating :</span> <span className="flex items-center gap-1">{rating}<IoIosStar className="text-amber-500" /></span></p>
+                <p className="flex items-center"><span className="font-medium">Rating :</span> <span className="ml-1 flex items-center gap-1">{rating}<IoIosStar className="text-amber-500" /></span></p>
                 <p><span className="font-medium">Review :</span> {review}</p>
             </div>
         </div>

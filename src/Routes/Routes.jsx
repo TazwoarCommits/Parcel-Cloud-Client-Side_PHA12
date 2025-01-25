@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "../Layouts/MainLayout";
 import Home from "../Pages/Home/Home/Home";
-import Login from "../Pages/Login/login";
+import Login from "../Pages/Login/Login";
 import Register from "../Pages/Register/Register";
 import Dashboard from "../Layouts/Dashboard";
 import BookAParcel from "../Pages/Dashboard/UserPage/BookAParcel";
@@ -19,6 +19,8 @@ import AllUSers from "../Pages/Dashboard/AdminPages/AllUSers";
 import AdminRoutes from "./AdminRoutes";
 import AllDeliveryMan from "../Pages/Dashboard/AdminPages/AllDeliveryMan";
 import AllParcels from "../Pages/Dashboard/AdminPages/AllParcels";
+import Payment from "../Pages/Dashboard/UserPage/Payment";
+
 
 const router = createBrowserRouter([
   {
@@ -49,9 +51,12 @@ const router = createBrowserRouter([
           //   loader : ({params}) => fetch(`http://localhost:5000/parcels/${params.id}`) //
           // },
           {
+            path : "/dashboard/payment/:id",
+            element: <PrivateRoutes><Payment></Payment></PrivateRoutes>,
+          },
+          {
             path: "/dashboard/updateParcel/:id",
             element: <PrivateRoutes><UpdateParcel></UpdateParcel></PrivateRoutes>,
-            loader : ({params}) => fetch(`http://localhost:5000/parcels/${params.id}`)
           },
           {
             path: "/dashboard/bookParcel",

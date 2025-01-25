@@ -1,15 +1,17 @@
 import { useForm } from "react-hook-form";
 import SectionTitle from "../../Components/SectionTitle";
 import useAuth from "../../Hooks/useAuth";
-import useAxiosPublic from "../../Hooks/useAxios";
 import useUser from "../../Hooks/useUser";
 import { useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import useAxiosPublic from "../../Hooks/useAxios";
 
 
 const UpdateProfile = () => {
     const { handleSubmit, register } = useForm();
     const { user, updateUsersProfile, setLoading } = useAuth();
-    const axiosPublic = useAxiosPublic();
+    const axiosSecure = useAxiosSecure() ;
+    const axiosPublic = useAxiosPublic() ;
     const [userDb, refetch] = useUser();
     const navigate = useNavigate();
     console.log(userDb);
@@ -20,6 +22,8 @@ const UpdateProfile = () => {
 
     const onSubmit = async form => {
         try {
+
+            // with photo update
 
             if (form.photo.length > 0) {
 
@@ -42,7 +46,7 @@ const UpdateProfile = () => {
 
 
 
-                const { data: dataDb } = await axiosPublic.patch(`/users/${userDb._id}`, updatedInfo)
+                const { data: dataDb } = await axiosSecure.patch(`/users/${userDb._id}`, updatedInfo)
                 console.log(dataDb);
                 if (dataDb.modifiedCount > 0) {
                     setLoading(false);
@@ -51,6 +55,7 @@ const UpdateProfile = () => {
                 };
             }
 
+            // with out photo update
             else {
 
                 const name = form?.name ? form.name : user.displayName;
@@ -63,7 +68,7 @@ const UpdateProfile = () => {
                     updatedPhoto: photo
                 }
 
-                const { data: dataDb } = await axiosPublic.patch(`/users/${userDb._id}`, updatedInfo)
+                const { data: dataDb } = await axiosSecure.patch(`/users/${userDb._id}`, updatedInfo)
                 console.log(dataDb);
                 if (dataDb.modifiedCount > 0) {
                     setLoading(false);

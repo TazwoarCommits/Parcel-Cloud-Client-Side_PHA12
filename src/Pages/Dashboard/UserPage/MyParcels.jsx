@@ -10,66 +10,66 @@ import ReactStars from 'react-stars'
 import useAuth from "../../../Hooks/useAuth";
 
 const MyParcels = () => {
-    const {user} = useAuth() ;
+    const { user } = useAuth();
     const [parcel, refetch] = useParcel();
     const axiosSecure = useAxiosSecure();
     const [filterBy, setFilterBy] = useState("");
-    const [review , setReview] = useState("") ; 
-    const [rating , setRating] = useState(0) ; 
-    const [ id , setId] = useState("") ; 
+    const [review, setReview] = useState("");
+    const [rating, setRating] = useState(0);
+    const [id, setId] = useState("");
 
     // set Rating in a state 
     const ratingChanged = (newRating) => {
-        setRating(newRating) ;
+        setRating(newRating);
     }
 
     // set rev in a state 
     const handleReview = e => {
-        setReview(e.target.value) ;
+        setReview(e.target.value);
     }
 
     // posting a new Review
 
     const handleNewRev = async () => {
         const newRev = {
-            review : review ,
-            rating : rating,
-            deliveryManId : id ,
-            reviewersEmail : user.email ,
-            reviewersName : user.displayName , 
-            reviewersPhoto : user.photoURL ,
-            createdAt : new Date() ,
+            review: review,
+            rating: rating,
+            deliveryManId: id,
+            reviewersEmail: user.email,
+            reviewersName: user.displayName,
+            reviewersPhoto: user.photoURL,
+            createdAt: new Date(),
         }
 
-      if(newRev.review !== ""){
-        const {data} = await axiosSecure.post("/reviews" , newRev)
-        if(data.insertedId){
-          setRating(0);
-          setId("") ;
-          setReview("");
-          refetch() ;
-          Swal.fire({
-             position: "center",
-             icon: "success",
-             title: "Thanks for your feedback",
-             showConfirmButton: false,
-             timer: 1500
-           });
-           
-        }
-      }
+        if (newRev.review !== "") {
+            const { data } = await axiosSecure.post("/reviews", newRev)
+            if (data.insertedId) {
+                setRating(0);
+                setId("");
+                setReview("");
+                refetch();
+                Swal.fire({
+                    position: "center",
+                    icon: "success",
+                    title: "Thanks for your feedback",
+                    showConfirmButton: false,
+                    timer: 1500
+                });
 
-      else{
-        setRating(0);
-          setId("") ;
-        Swal.fire({
-            position: "center",
-            icon: "warning",
-            title: "Please write your experience",
-            showConfirmButton: false,
-            timer: 1500
-          });
-      }
+            }
+        }
+
+        else {
+            setRating(0);
+            setId("");
+            Swal.fire({
+                position: "center",
+                icon: "warning",
+                title: "Please write your experience",
+                showConfirmButton: false,
+                timer: 1500
+            });
+        }
 
     }
 
@@ -119,7 +119,7 @@ const MyParcels = () => {
             </Helmet>
             <SectionTitle title="My Parcel"></SectionTitle>
             <div className="my-8 md:my-16">
-                <select name="" id="" onChange={(e)=>setFilterBy(e.target.value)} className="p-4 text-semibold border-2 border-amber-400 rounded-xl">
+                <select name="" id="" onChange={(e) => setFilterBy(e.target.value)} className="p-4 text-semibold border-2 border-amber-400 rounded-xl">
                     <option value="">Filter By</option>
                     <option value="">All</option>
                     <option className="hover:bg-amber-400" value="delivered">Delivered</option>
@@ -169,8 +169,8 @@ const MyParcels = () => {
                                         <button disabled className="text-[10px] mx-1 px-2 py-1 rounded-md bg-gray-700 text-white font-medium">Cancel</button>
                                     </div>}</td>
                                 <td>{item.status === "delivered" ?
-                                    <button onClick={() => {setId(item.deliveryManId) ; document.getElementById('my_modal_5').showModal()}}
-                                     className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium"
+                                    <button onClick={() => { setId(item.deliveryManId); document.getElementById('my_modal_5').showModal() }}
+                                        className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium"
                                     >Review</button>
                                     // <Link to={`/dashboard/addReview/${item._id}`}>
                                     //     <button className="text-[10px] mx-1 px-2 py-1 bg-amber-600 rounded-md text-white font-medium">Review</button>
@@ -179,7 +179,9 @@ const MyParcels = () => {
                                     <button disabled className="text-[10px] mx-1 px-2 py-1 bg-gray-700 rounded-md text-white font-medium">Review</button>}
                                 </td>
                                 <td>
-                                    <button className="text-[10px] mx-1 px-2 py-1  bg-amber-600 rounded-md text-white font-medium">Pay</button>
+                                    <Link to={`/dashboard/payment/${item._id}`}> <button
+                                        className="text-[10px] mx-1 px-2 py-1  bg-amber-600 rounded-md text-white font-medium"
+                                    >Pay</button></Link>
                                 </td>
                             </tr>)
                         }
@@ -190,6 +192,14 @@ const MyParcels = () => {
             {/* -----------Review Modal---------- */}
             <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
                 <div className="modal-box">
+                    <div>
+                        <div className="flex gap-1 items-center">
+                            <img className="w-[36px] h-[36px] rounded-full" src={user.photoURL} />
+                            <p>{user.displayName}</p>
+                        </div>
+                        <p className="mt-2">
+                            <span>Delivery Man&apos;s Id :</span> {id}</p>
+                    </div>
                     <div className="mt-2">
                         <ReactStars
                             count={5}
@@ -198,12 +208,12 @@ const MyParcels = () => {
                             size={24}
                             color2={'#ffd700'} />
                         <textarea onChange={handleReview}
-                         className="p-4 border-2 rounded-xl w-full h-[200px] resize-none" placeholder="write your review" name="review"
+                            className="p-4 border-2 rounded-xl w-full h-[200px] resize-none" placeholder="write your review" name="review"
                         ></textarea>
                     </div>
                     <div className="modal-action">
                         <form method="dialog">
-                            <button className="btn" onClick={()=>handleNewRev()}>Close</button>
+                            <button className="btn" onClick={() => handleNewRev()}>Close</button>
                         </form>
                     </div>
                 </div>

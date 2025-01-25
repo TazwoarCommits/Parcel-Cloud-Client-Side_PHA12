@@ -11,11 +11,13 @@ import StatCard from "../../../Components/StatCard";
 import parcel from "../../../assets/Parcels.jpg"
 import customer from "../../../assets/customer.jpg"
 import delivered from "../../../assets/delivered.jpeg"
+import TopDeliveryManCard from "../TopDeliveryMan/TopDeliveryManCard";
 
 
 const Home = () => {
     const axiosPublic = useAxiosPublic();
 
+    // fetching stats
     const { data: stats = {} } = useQuery({
         queryKey: ["stats"],
         queryFn: async () => {
@@ -23,6 +25,17 @@ const Home = () => {
             return data;
         }
     });
+
+    // fetching top Deliveryman 
+
+    const {data : deliveryMen = [] } = useQuery({
+        queryKey : ["top-deliverymen"],
+        queryFn : async () => {
+            const {data} = await axiosPublic("/top-deliveryman") ;
+            return data
+        }
+
+    }) ;
 
     return (
         <div>
@@ -32,7 +45,7 @@ const Home = () => {
             <Banner></Banner>
             <SectionTitle title="Our Features"></SectionTitle>
 
-            <section className="w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section className="mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <FeaturedCard icon={feature1}
                     title="Parcel Safety"
                     animate="fade-up-right"
@@ -55,7 +68,7 @@ const Home = () => {
                 ></FeaturedCard>
 
             </section>
-            <section className="mt-8 w-full grid grid-cols-1 md:grid-cols-3 gap-6">
+            <section className="mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard bg={"stat1"} data={stats.parcels} image={parcel}
                     title={"Orders"}
                 ></StatCard>
@@ -66,10 +79,17 @@ const Home = () => {
 
                 <StatCard bg={"stat2"} data={stats.delivered} image={delivered}
                     title={"Deliveries"}
+                    description={"We successfully deliver the parcels to their destinations without any damage"}
                 ></StatCard>
             </section>
 
             <SectionTitle title="Our Top Delivery Men"></SectionTitle>
+
+            <section className="mt-8 mb-24 md:mb-48 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                {
+                    deliveryMen.map((man , idx) => <TopDeliveryManCard key={man._id} deliveryman={man} idx={idx}></TopDeliveryManCard>)
+                }
+            </section>
 
         </div>
     );

@@ -5,12 +5,12 @@ AOS.init();
 import CountUp from 'react-countup';
 import { useInView } from "react-intersection-observer";
 
-const StatCard = ({ bg, data, description, image, title }) => {
+const StatCard = ({ bg, data, image, title }) => {
 
     const { ref, inView } = useInView({
 
         triggerOnce: true, // Trigger animation only once
-        threshold: 0.5, // Trigger when 50% of the component is visible
+        threshold: 1, // Trigger when 100% of the component is visible
     })
 
     return (
@@ -20,18 +20,17 @@ const StatCard = ({ bg, data, description, image, title }) => {
                     <img className="w-[120px] h-[120px] rounded-full"
                         src={image} />
                     <div className="flex items-center gap-4">
-                        <p className="special text-5xl"><CountUp end={data} delay={1} duration={3} /></p>
+                        <p className="special text-5xl"><CountUp start={0} end={data} delay={1} duration={3} separator="," /></p>
                         <p className=" md:text-xl">{title}</p>
                     </div>
                 </div>
-                <p>{description}</p>
             </>}
         </div>
     );
 };
 
+
 StatCard.propTypes = {
-    description: PropTypes.string,
     data: PropTypes.number,
     bg: PropTypes.string,
     image: PropTypes.string,

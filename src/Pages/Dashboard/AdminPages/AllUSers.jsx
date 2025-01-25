@@ -22,6 +22,7 @@ const AllUSers = () => {
 
     
     // fetching users count to calculate page numbers
+    
     const { data: usersCount = { count: 0 }, refetch: reCount } = useQuery({
         queryKey: ["usersCount"],
         queryFn: async () => {
