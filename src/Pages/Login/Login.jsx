@@ -7,6 +7,7 @@ import toast from 'react-hot-toast';
 import Swal from 'sweetalert2';
 import useAuth from '../../Hooks/useAuth';
 import { Helmet } from 'react-helmet-async';
+import GoogleLogin from '../../Components/SocialLogin/GoogleLogin';
 
 const Login = () => {
     const { loginUser } = useAuth() ;
@@ -96,6 +97,11 @@ const Login = () => {
                             </div>
                             <div>
                                 <p>Don&apos;t Have an Account ? <span className="text-amber-600"><Link to="/register">Register Now</Link></span></p>
+                            </div>
+                            <div className="my-3 py-4 border-t-2 border-amber-600 mx-auto w-11/12">
+                                <div className="md:w-11/12 mx-auto">
+                                    <GoogleLogin></GoogleLogin>
+                                </div>
                             </div>
                         </form>
                     </div>
