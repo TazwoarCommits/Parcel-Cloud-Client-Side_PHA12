@@ -30,7 +30,10 @@ const MyProfile = () => {
                     <p className="ml-2 md:ml-4 ">Phone : {userDb?.phone ? userDb?.phone : "N/A"}</p>
                     <p className="ml-2 md:ml-4 ">Address : {userDb?.address ? userDb?.address : "N/A"}</p>
                     <p className="ml-2 md:ml-4 capitalize ">Role : {userDb?.role}</p>
-                    <p className="ml-2 md:ml-4 ">My Total Parcel : {parcel?.length}</p>
+                    {
+                    userDb.role === "delivery man" ? <p className="ml-2 md:ml-4 ">Total Delivered : {userDb.delivered }</p> : <p className="ml-2 md:ml-4 ">My Total Parcel : {parcel?.length}</p>
+                    
+                    }
                 </div>
                  <div className="my-6">
                       <Link to="/dashboard/updateProfile">
