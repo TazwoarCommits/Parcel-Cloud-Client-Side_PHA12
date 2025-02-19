@@ -73,7 +73,7 @@ const Navbar = () => {
                         }
                         {
                             user && userDb?.role === "admin" && <li>
-                                <Link to="/dashboard/stats">Dashboard</Link>
+                                <Link to="/dashboard/overview">Dashboard</Link>
                             </li>
 
                         }

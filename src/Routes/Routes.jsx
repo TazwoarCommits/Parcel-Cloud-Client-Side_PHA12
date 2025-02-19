@@ -91,8 +91,8 @@ const router = createBrowserRouter([
           // Admin Routes
 
           {
-            path : "/dashboard/stats" ,
-            element : <Statistics></Statistics> ,
+            path : "/dashboard/overview" ,
+            element :<AdminRoutes> <Statistics></Statistics> </AdminRoutes>,
           },
           {
             path : "/dashboard/allParcels" ,

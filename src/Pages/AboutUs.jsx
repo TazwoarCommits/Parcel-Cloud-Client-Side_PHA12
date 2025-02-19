@@ -25,7 +25,7 @@ const AboutUs = () => {
             </div>
             <SectionTitle title="Why Choose Us?">
             </SectionTitle>
-            <div className="flex items-center gap-8">
+            <div className="flex flex-col md:flex-row items-center gap-8">
                 <img className="md:w-1/2 h-[350px]" src={feature} alt="" />
                 <div>
                     <h3 className="text-lg md:text-xl">There are Multiple reason to choose us. Here are some key element why you can trust us with your valuable belongings</h3>

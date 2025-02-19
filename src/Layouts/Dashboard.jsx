@@ -29,8 +29,8 @@ const Dashboard = () => {
                         <>
 
                             <li>
-                                <NavLink to="/dashboard/stats">
-                                   <span className='text-lg'><IoStatsChartOutline /></span> Statistics
+                                <NavLink to="/dashboard/overview">
+                                   <span className='text-lg'><IoStatsChartOutline /></span> Overview
                                 </NavLink>
                             </li>
                             <li>
