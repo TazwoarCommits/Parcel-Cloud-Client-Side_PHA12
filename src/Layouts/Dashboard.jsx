@@ -13,13 +13,18 @@ const Dashboard = () => {
 
     return (
         <div className="flex flex-col md:flex-row gap-6">
-            <div className='w-full md:w-48 bg-amber-500 text-black md:rounded-t-lg'>
+            <div className='w-full md:w-48 bg-amber-500 text-black md:h-[100vh] rounded-t-lg'>
                 <ul className='menu p-4'>
                     <li>
                         <NavLink to="/">
                             <span><FaHome /></span>Home
                         </NavLink>
                     </li>
+                    <li>
+                            <NavLink to="/dashboard/profile">
+                                <span className='text-lg'><RiAccountCircleLine /></span> Profile
+                            </NavLink>
+                        </li>
                     {userDb?.role === "admin" && (
                         <>
 
@@ -57,11 +62,6 @@ const Dashboard = () => {
                         <li>
                             <NavLink to="/dashboard/bookParcel">
                                 <span className='text-lg'><MdAddCard /></span> Book Parcel
-                            </NavLink>
-                        </li>
-                        <li>
-                            <NavLink to="/dashboard/profile">
-                                <span className='text-lg'><RiAccountCircleLine /></span> Profile
                             </NavLink>
                         </li>
                     </>}

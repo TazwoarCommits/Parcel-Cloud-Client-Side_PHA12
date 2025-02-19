@@ -14,7 +14,7 @@ const UpdateProfile = () => {
     const axiosPublic = useAxiosPublic() ;
     const [userDb, refetch] = useUser();
     const navigate = useNavigate();
-    console.log(userDb);
+    // console.log(userDb);
 
 
     const image_hosting_key = import.meta.env.VITE_image_hosting_API_key;
@@ -36,10 +36,14 @@ const UpdateProfile = () => {
 
                 const name = form?.name ? form.name : user.displayName;
                 const photo = data?.data?.display_url ? data?.data?.display_url : user.photoURL;
+                const address = form?.address ? form.address : userDb.address ;
+                const phone = form?.phone ? form.phone : userDb.phone ;
 
                 const updatedInfo = {
                     updatedName: name,
-                    updatedPhoto: photo
+                    updatedPhoto: photo ,
+                    updatedAddress : address,
+                    updatedPhone : phone
                 }
 
                 updateUsersProfile(name, photo);
@@ -47,7 +51,7 @@ const UpdateProfile = () => {
 
 
                 const { data: dataDb } = await axiosSecure.patch(`/users/${userDb._id}`, updatedInfo)
-                console.log(dataDb);
+                // console.log(dataDb);
                 if (dataDb.modifiedCount > 0) {
                     setLoading(false);
                     refetch();
@@ -60,12 +64,16 @@ const UpdateProfile = () => {
 
                 const name = form?.name ? form.name : user.displayName;
                 const photo = user.photoURL;
+                const address = form?.address ? form.address : userDb.address ;
+                const phone = form?.phone ? form.phone : userDb.phone ;
 
                 updateUsersProfile(name, photo);
 
                 const updatedInfo = {
                     updatedName: name,
-                    updatedPhoto: photo
+                    updatedPhoto: photo,
+                    updatedAddress : address,
+                    updatedPhone : phone 
                 }
 
                 const { data: dataDb } = await axiosSecure.patch(`/users/${userDb._id}`, updatedInfo)
@@ -95,6 +103,22 @@ const UpdateProfile = () => {
                             <span className="label-text">Update UserName</span>
                         </label>
                         <input type="text" {...register("name")} placeholder={`${user.displayName}`} className="input input-bordered" />
+                    </div>
+                </div>
+                <div className="gap-4">
+                    <div className="form-control full">
+                        <label className="label">
+                            <span className="label-text">Update Phone Number</span>
+                        </label>
+                        <input type="text" {...register("phone")} placeholder={`${userDb.phone? userDb.phone : "N/A"}`} className="input input-bordered" />
+                    </div>
+                </div>
+                <div className="gap-4">
+                    <div className="form-control full">
+                        <label className="label">
+                            <span className="label-text">Update Address</span>
+                        </label>
+                        <input type="text" {...register("address")} placeholder={`${userDb.address? userDb.address : "N/A"}`} className="input input-bordered" />
                     </div>
                 </div>
                 <label className="form-control w-full">

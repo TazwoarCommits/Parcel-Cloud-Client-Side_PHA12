@@ -6,7 +6,7 @@ import { FaGlobe, FaInstagramSquare } from "react-icons/fa";
 const Footer = () => {
     const date = new Date();
     return (
-        <footer className="bg-gray-700 py-8 z-10">
+        <footer className="md:w-11/12 mx-auto mt-16 bg-gray-700 py-8 z-10">
             <h3 className="special text-4xl text-amber-400 text-center "
             >Parcel Cloud</h3>
             <div className="w-8/12 mx-auto">
