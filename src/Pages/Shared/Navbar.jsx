@@ -1,5 +1,5 @@
 import { IoMdNotificationsOutline } from "react-icons/io";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import 'animate.css';
 import useAuth from "../../Hooks/useAuth";
 import useUser from "../../Hooks/useUser";
@@ -13,13 +13,15 @@ const Navbar = () => {
     };
 
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar w-11/12 mx-auto px-0">
             <div className="flex-1">
                 <p className="bg-gray-700 px-4 pt-3 pb-2 rounded-lg text-3xl animate__animated animate__lightSpeedInLeft font-Logo special text-amber-300">
                     <Link to="/">Parcel Cloud</Link></p>
             </div>
             <div className="flex-none">
-                <Link to="/"><p className="text-sm">Home</p></Link>
+                <NavLink to="/"><p className="text-sm mx-2 hidden md:flex">Home</p></NavLink>
+                <NavLink to="/about-us"><p className="text-sm mx-2 hidden md:flex">About Us</p></NavLink>
+                <NavLink to="/contact-Us"><p className="text-sm mx-2 hidden md:flex">Contact Us</p></NavLink>
                 <div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
@@ -57,8 +59,12 @@ const Navbar = () => {
                             </li>
 
                         }
+                        <li className="md:hidden"><Link to="/">Home</Link></li>
+                        <li className="md:hidden"><Link to="/about-us">About Us</Link></li>
+                        <li className="md:hidden"><Link to="/contact-Us">Contact Us</Link></li>
                         <li>{user ? <p onClick={handleLogOut}>Logout</p> : <Link to="/register">Register</Link>}</li>
                         <li>{user ? "" : <Link to="/login">Login</Link>}</li>
+
                     </ul>
                 </div>
             </div>

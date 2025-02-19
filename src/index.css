@@ -34,8 +34,8 @@
 
 
 a.active {
-    color: rgba(255, 217, 0, 0.863);
-    background-color: yellowgreen;
+    color: yellow ;
     font-style: italic;
     border-radius: 8px;
+    font-weight: 600;
 }

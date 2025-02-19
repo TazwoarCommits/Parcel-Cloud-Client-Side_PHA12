@@ -20,6 +20,8 @@ import AdminRoutes from "./AdminRoutes";
 import AllDeliveryMan from "../Pages/Dashboard/AdminPages/AllDeliveryMan";
 import AllParcels from "../Pages/Dashboard/AdminPages/AllParcels";
 import Payment from "../Pages/Dashboard/UserPage/Payment";
+import ContactUs from "../Pages/ContactUs";
+import AboutUs from "../Pages/AboutUs";
 
 
 const router = createBrowserRouter([
@@ -31,6 +33,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <Home></Home>
+      },
+      {
+        path : "/contact-Us",
+        element : <ContactUs></ContactUs>
+      },
+      {
+        path : "/about-us",
+        element : <AboutUs></AboutUs>
       },
       {
         path: "/dashboard",
