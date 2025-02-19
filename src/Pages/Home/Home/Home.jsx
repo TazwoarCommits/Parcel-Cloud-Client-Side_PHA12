@@ -12,7 +12,7 @@ import parcel from "../../../assets/Parcels.jpg"
 import customer from "../../../assets/customer.jpg"
 import delivered from "../../../assets/delivered.jpeg"
 import TopDeliveryManCard from "../TopDeliveryMan/TopDeliveryManCard";
-
+import { Link } from "react-router-dom";
 
 const Home = () => {
     const axiosPublic = useAxiosPublic();
@@ -28,14 +28,14 @@ const Home = () => {
 
     // fetching top Deliveryman 
 
-    const {data : deliveryMen = [] } = useQuery({
-        queryKey : ["top-deliverymen"],
-        queryFn : async () => {
-            const {data} = await axiosPublic("/top-deliveryman") ;
+    const { data: deliveryMen = [] } = useQuery({
+        queryKey: ["top-deliverymen"],
+        queryFn: async () => {
+            const { data } = await axiosPublic("/top-deliveryman");
             return data
         }
 
-    }) ;
+    });
 
     return (
         <div>
@@ -68,6 +68,7 @@ const Home = () => {
                 ></FeaturedCard>
 
             </section>
+            <SectionTitle title="our current Stats"></SectionTitle>
             <section className="dark:text-gray-700 mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard bg={"stat1"} data={stats.parcels} image={parcel}
                     title={"Orders"}
@@ -87,10 +88,48 @@ const Home = () => {
 
             <section className="mt-8 mb-24 md:mb-48 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {
-                    deliveryMen.map((man , idx) => <TopDeliveryManCard key={man._id} deliveryman={man} idx={idx}></TopDeliveryManCard>)
+                    deliveryMen.map((man, idx) => <TopDeliveryManCard key={man._id} deliveryman={man} idx={idx}></TopDeliveryManCard>)
                 }
             </section>
-
+            <section>
+                <SectionTitle title="about us"></SectionTitle>
+                <div className="flex justify-between items-center gap-8 md:gap-14">
+                    <div className="w-1/2">
+                        <p>Parcel Cloud is a smart parcel management platform designed to streamline booking, tracking, and delivery management. Whether you&apos;re a business or an individual, we provide secure, efficient, and hassle-free shipping solutions. Trusted by thousands, we ensure seamless nationwide and international deliveries with real-time tracking and excellent customer support.</p>
+                        <ul className="ml-3 md:ml-6 my-6 md:my-8 list-inside list-disc">
+                            <li>15+ Deliveries Completed</li>
+                            <li>Serving Nationwide / Internationally</li>
+                            <li>Trusted by Customers</li>
+                        </ul>
+                        <Link to="/about-us"><p className="font font-medium dark:text-amber-200">Learn More</p></Link>
+                    </div>
+                    <img className="h-[300px] w-1/2" src={customer} />
+                </div>
+            </section>
+            <section>
+                <SectionTitle title="FAQ"></SectionTitle>
+                <div className="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="my-accordion-2" defaultChecked />
+                    <div className="collapse-title text-xl font-medium">What is Parcel Cloud ?</div>
+                    <div className="collapse-content">
+                        <p>Parcel Cloud is your parcel delivery partner that ensure to reach your parcel to its destination</p>
+                    </div>
+                </div>
+                <div className="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="my-accordion-2" />
+                    <div className="collapse-title text-xl font-medium">How Can I post A parcel request ?</div>
+                    <div className="collapse-content">
+                        <p>Just Simply Signup and you are god to go </p>
+                    </div>
+                </div>
+                <div className="collapse collapse-arrow bg-base-200">
+                    <input type="radio" name="my-accordion-2" />
+                    <div className="collapse-title text-xl font-medium">Is it Safe ?</div>
+                    <div className="collapse-content">
+                        <p>Of course, your parcel and your information are both safe with us </p>
+                    </div>
+                </div>
+            </section>
         </div>
     );
 };

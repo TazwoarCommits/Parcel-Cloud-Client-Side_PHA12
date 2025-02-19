@@ -28,7 +28,7 @@ const ContactUs = () => {
                     <p className='flex items-center gap-2'> <span className='dark:text-white'><BsTwitterX /></span> parcel_cloud</p>
                 </div>
             </div>
-            <div className='my-16 md:my-24 ml-2 md:ml-0'>
+            <div className='md:ml-16 my-16 md:my-24 ml-2'>
                  <h3 className='font-semibold text-2xl text-center dark:text-amber-300'>Contact Our Helpline</h3>
                  <div>
                  <p className='my-2 text-lg font-semibold'>Our Contact Numbers : </p>
