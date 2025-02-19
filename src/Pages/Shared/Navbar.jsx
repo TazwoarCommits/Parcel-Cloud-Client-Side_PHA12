@@ -3,10 +3,28 @@ import { Link, NavLink } from "react-router-dom";
 import 'animate.css';
 import useAuth from "../../Hooks/useAuth";
 import useUser from "../../Hooks/useUser";
+import { useEffect, useState } from "react";
+import { FaMoon } from "react-icons/fa";
+import { MdSunny } from "react-icons/md";
 
 const Navbar = () => {
     const { user, logOut } = useAuth();
     const [userDb] = useUser();
+    const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+
+    useEffect(() => {
+        document.documentElement.setAttribute("data-theme", theme);
+        if (theme === "dark") {
+          document.documentElement.classList.add("dark");
+        } else {
+          document.documentElement.classList.remove("dark");
+        }
+        localStorage.setItem("theme", theme);
+      }, [theme]);
+    
+      const handleToggle = () => {
+        setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+      };
 
     const handleLogOut = () => {
         logOut();
@@ -18,11 +36,17 @@ const Navbar = () => {
                 <p className="bg-gray-700 px-4 pt-3 pb-2 rounded-lg text-3xl animate__animated animate__lightSpeedInLeft font-Logo special text-amber-300">
                     <Link to="/">Parcel Cloud</Link></p>
             </div>
-            <div className="flex-none">
+            <div className="flex-none dark:text-white ">
                 <NavLink to="/"><p className="text-sm mx-2 hidden md:flex">Home</p></NavLink>
                 <NavLink to="/about-us"><p className="text-sm mx-2 hidden md:flex">About Us</p></NavLink>
                 <NavLink to="/contact-Us"><p className="text-sm mx-2 hidden md:flex">Contact Us</p></NavLink>
                 <div className="dropdown dropdown-end">
+                <button
+                        onClick={()=>handleToggle()}
+                        className="px-2 py-2 bg-gray-800 dark:bg-gray-300 text-white dark:text-gray-800 rounded-full "
+                    >
+                        {theme === "dark" ? <MdSunny /> : <FaMoon />}
+                    </button>
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
                         <div className="indicator">
                             <IoMdNotificationsOutline className="text-xl font-bold" />

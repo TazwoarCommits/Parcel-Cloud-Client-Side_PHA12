@@ -195,7 +195,7 @@ const BookAParcel = () => {
                     </label>
                 </div>
                 <div className="max-w-xs mx-auto my-6 md:my-12">
-                    <button className="mx-auto w-full bg-amber-400 py-3 px-12 font-semibold text-lg rounded-2xl">Add Parcel</button>
+                    <button className="mx-auto w-full dark:text-gray-800 bg-amber-400 py-3 px-12 font-semibold text-lg rounded-2xl">Add Parcel</button>
                 </div>
             </form>
         </div>

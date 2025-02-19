@@ -45,7 +45,7 @@ const Home = () => {
             <Banner></Banner>
             <SectionTitle title="Our Features"></SectionTitle>
 
-            <section className="mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="dark:text-gray-700 mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <FeaturedCard icon={feature1}
                     title="Parcel Safety"
                     animate="fade-up-right"
@@ -68,7 +68,7 @@ const Home = () => {
                 ></FeaturedCard>
 
             </section>
-            <section className="mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <section className="dark:text-gray-700 mt-8 mb-24 md:mb-4 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <StatCard bg={"stat1"} data={stats.parcels} image={parcel}
                     title={"Orders"}
                 ></StatCard>

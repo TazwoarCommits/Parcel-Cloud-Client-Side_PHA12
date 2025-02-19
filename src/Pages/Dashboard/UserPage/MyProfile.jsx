@@ -33,7 +33,7 @@ const MyProfile = () => {
                  <div className="my-6">
                       <Link to="/dashboard/updateProfile">
                       <button 
-                      className="ml-2 md:ml-4 py-2 px-6 bg-amber-400 hover:bg-amber-500 rounded-2xl"
+                      className="ml-2 md:ml-4 py-2 px-6 dark:text-black bg-amber-400 hover:bg-amber-500 rounded-2xl"
                       >Update Profile</button>
                       </Link>
                  </div>

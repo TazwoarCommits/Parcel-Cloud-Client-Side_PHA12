@@ -13,7 +13,7 @@ const Dashboard = () => {
 
     return (
         <div className="flex flex-col md:flex-row gap-6">
-            <div className='w-full md:w-48 bg-amber-500 text-black md:h-screen md:rounded-t-lg'>
+            <div className='w-full md:w-48 bg-amber-500 text-black md:rounded-t-lg'>
                 <ul className='menu p-4'>
                     <li>
                         <NavLink to="/">
