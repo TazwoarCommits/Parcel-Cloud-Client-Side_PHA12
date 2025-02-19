@@ -107,6 +107,11 @@ const Home = () => {
                 </div>
             </section>
             <section>
+                <div>
+                 
+                </div>
+            </section>
+            <section>
                 <SectionTitle title="FAQ"></SectionTitle>
                 <div className="collapse collapse-arrow bg-base-200">
                     <input type="radio" name="my-accordion-2" defaultChecked />
